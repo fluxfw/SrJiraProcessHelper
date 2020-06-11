@@ -144,24 +144,71 @@
         ]
     },
     {
-        "name": "srag/librariesnamespacechanger",
-        "version": "v0.9.5",
-        "version_normalized": "0.9.5.0",
+        "name": "srag/jiracurl",
+        "version": "v0.8.4",
+        "version_normalized": "0.8.4.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-            "reference": "035b8c7be93083f686e2d4e53b8dabc6f2e6b338"
+            "url": "https://github.com/studer-raimann/JiraCurl.git",
+            "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/035b8c7be93083f686e2d4e53b8dabc6f2e6b338",
-            "reference": "035b8c7be93083f686e2d4e53b8dabc6f2e6b338",
+            "url": "https://api.github.com/repos/studer-raimann/JiraCurl/zipball/6261c4319ddc21929a917994794b8d55b72d3cfe",
+            "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0",
+            "srag/dic": ">=0.1.0"
+        },
+        "time": "2020-05-13T05:58:01+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\JiraCurl\\SrJiraProcessHelper\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Connect to Jira via Curl",
+        "homepage": "https://github.com/studer-raimann/JiraCurl",
+        "keywords": [
+            "ILIAS",
+            "curl",
+            "jira"
+        ]
+    },
+    {
+        "name": "srag/librariesnamespacechanger",
+        "version": "v0.9.6",
+        "version_normalized": "0.9.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
+            "reference": "f5451031de55e8511e9116e32288ba35d74b83f8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/f5451031de55e8511e9116e32288ba35d74b83f8",
+            "reference": "f5451031de55e8511e9116e32288ba35d74b83f8",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0"
         },
-        "time": "2020-06-11T05:58:29+00:00",
+        "time": "2020-06-11T06:43:30+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

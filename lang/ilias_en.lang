@@ -1,3 +1,9 @@
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
+config_jira#:#Jira
+config_jira_authorization#:#Authorization
+config_jira_authorization_usernamepassword#:#Username & password
+config_jira_domain#:#Domain name
+config_jira_password#:#Password
+config_jira_username#:#Username
 config_save#:#Save

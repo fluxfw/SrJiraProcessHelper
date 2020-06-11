@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6b4afe5ffaa52a287d99fee6fb927f7",
+    "content-hash": "353432c7dc86a1266c68edac283f1bef",
     "packages": [
         {
             "name": "srag/activerecordconfig",
@@ -28,7 +28,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\": "src/"
+                    "srag\\ActiveRecordConfig\\SrJiraProcessHelper\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -145,17 +145,62 @@
             "time": "2020-06-09T05:30:37+00:00"
         },
         {
-            "name": "srag/librariesnamespacechanger",
-            "version": "v0.9.5",
+            "name": "srag/jiracurl",
+            "version": "v0.8.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-                "reference": "035b8c7be93083f686e2d4e53b8dabc6f2e6b338"
+                "url": "https://github.com/studer-raimann/JiraCurl.git",
+                "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/035b8c7be93083f686e2d4e53b8dabc6f2e6b338",
-                "reference": "035b8c7be93083f686e2d4e53b8dabc6f2e6b338",
+                "url": "https://api.github.com/repos/studer-raimann/JiraCurl/zipball/6261c4319ddc21929a917994794b8d55b72d3cfe",
+                "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "srag/dic": ">=0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "srag\\JiraCurl\\SrJiraProcessHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "studer + raimann ag - Team Custom 1",
+                    "email": "support-custom1@studer-raimann.ch",
+                    "homepage": "https://studer-raimann.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Connect to Jira via Curl",
+            "homepage": "https://github.com/studer-raimann/JiraCurl",
+            "keywords": [
+                "ILIAS",
+                "curl",
+                "jira"
+            ],
+            "time": "2020-05-13T05:58:01+00:00"
+        },
+        {
+            "name": "srag/librariesnamespacechanger",
+            "version": "v0.9.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
+                "reference": "f5451031de55e8511e9116e32288ba35d74b83f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/f5451031de55e8511e9116e32288ba35d74b83f8",
+                "reference": "f5451031de55e8511e9116e32288ba35d74b83f8",
                 "shasum": ""
             },
             "require": {
@@ -185,7 +230,7 @@
                 "ILIAS",
                 "libraries"
             ],
-            "time": "2020-06-11T05:58:29+00:00"
+            "time": "2020-06-11T06:43:30+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",

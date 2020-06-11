@@ -5,6 +5,9 @@ namespace srag\Plugins\SrJiraProcessHelper\Config;
 use ilSrJiraProcessHelperPlugin;
 use srag\ActiveRecordConfig\SrJiraProcessHelper\Config\AbstractFactory;
 use srag\ActiveRecordConfig\SrJiraProcessHelper\Config\AbstractRepository;
+use srag\ActiveRecordConfig\SrJiraProcessHelper\Config\Config;
+use srag\JiraCurl\SrJiraProcessHelper\JiraCurl;
+use srag\Plugins\SrJiraProcessHelper\Config\Form\FormBuilder;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 
 /**
@@ -73,6 +76,11 @@ final class Repository extends AbstractRepository
      */
     protected function getFields() : array
     {
-        return [];
+        return [
+            FormBuilder::KEY_JIRA_AUTHORIZATION => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
+            FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING
+        ];
     }
 }
