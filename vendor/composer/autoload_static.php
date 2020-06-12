@@ -18,7 +18,7 @@ class ComposerStaticInit2695d85c88ec40da5e52d53e6214168e
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
             'srag\\DIC\\SrJiraProcessHelper\\' => 29,
-            'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
+            'srag\\CustomInputGUIs\\' => 21,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
         ),
     );
@@ -44,7 +44,7 @@ class ComposerStaticInit2695d85c88ec40da5e52d53e6214168e
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
