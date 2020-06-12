@@ -1,19 +1,19 @@
 <?php
 
-namespace srag\Plugins\SrJiraProcessHelper\Job;
+namespace srag\Plugins\SrJiraProcessHelper\Hook;
 
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 
 /**
- * Class Repository
+ * Class Factory
  *
- * @package srag\Plugins\SrJiraProcessHelper\Job
+ * @package srag\Plugins\SrJiraProcessHelper\Hook
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Repository
+final class Factory
 {
 
     use DICTrait;
@@ -27,7 +27,7 @@ final class Repository
 
 
     /**
-     * Repository constructor
+     * Factory constructor
      */
     private function __construct()
     {
@@ -49,28 +49,12 @@ final class Repository
 
 
     /**
-     * @internal
+     * @inheritDoc
      */
-    public function dropTables()/* : void*/
+    public function newInstance() : Hook
     {
+        $hook = new Hook();
 
-    }
-
-
-    /**
-     * @return Factory
-     */
-    public function factory() : Factory
-    {
-        return Factory::getInstance();
-    }
-
-
-    /**
-     * @internal
-     */
-    public function installTables()/* : void*/
-    {
-
+        return $hook;
     }
 }

@@ -6,4 +6,7 @@ config_jira_authorization_usernamepassword#:#Benutzername & Passwort
 config_jira_domain#:#Domainname
 config_jira_password#:#Passwort
 config_jira_username#:#Benutzername
+config_mapping#:#Mapping
+config_mapping_assign_jira_user#:#Jira-Benutzer zuweisen
+config_mapping_email_domain#:#E-Mail-Domain
 config_save#:#Speichern

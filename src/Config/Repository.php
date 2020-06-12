@@ -30,6 +30,15 @@ final class Repository extends AbstractRepository
 
 
     /**
+     * Repository constructor
+     */
+    protected function __construct()
+    {
+        parent::__construct();
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -43,15 +52,6 @@ final class Repository extends AbstractRepository
 
 
     /**
-     * Repository constructor
-     */
-    protected function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    /**
      * @inheritDoc
      *
      * @return Factory
@@ -59,6 +59,24 @@ final class Repository extends AbstractRepository
     public function factory() : AbstractFactory
     {
         return Factory::getInstance();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function setValue(string $name, $value)/*: void*/
+    {
+        if ($name === FormBuilder::KEY_MAPPING) {
+            usort($value, function (array $a1, array $a2) : int {
+                $n1 = $a1["email_domain"];
+                $n2 = $a2["email_domain"];
+
+                return strnatcasecmp($n1, $n2);
+            });
+        }
+
+        parent::setValue($name, $value);
     }
 
 
@@ -80,7 +98,8 @@ final class Repository extends AbstractRepository
             FormBuilder::KEY_JIRA_AUTHORIZATION => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
             FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
-            FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING
+            FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
+            FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true]
         ];
     }
 }

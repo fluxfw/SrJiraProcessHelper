@@ -18,7 +18,7 @@ class ComposerStaticInit2695d85c88ec40da5e52d53e6214168e
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
             'srag\\DIC\\SrJiraProcessHelper\\' => 29,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
         ),
     );
@@ -44,7 +44,7 @@ class ComposerStaticInit2695d85c88ec40da5e52d53e6214168e
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -169,6 +169,9 @@ class ComposerStaticInit2695d85c88ec40da5e52d53e6214168e
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Factory' => __DIR__ . '/../..' . '/src/Config/Factory.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/Config/Form/FormBuilder.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Repository' => __DIR__ . '/../..' . '/src/Config/Repository.php',
+        'srag\\Plugins\\SrJiraProcessHelper\\Hook\\Factory' => __DIR__ . '/../..' . '/src/Hook/Factory.php',
+        'srag\\Plugins\\SrJiraProcessHelper\\Hook\\Hook' => __DIR__ . '/../..' . '/src/Hook/Hook.php',
+        'srag\\Plugins\\SrJiraProcessHelper\\Hook\\Repository' => __DIR__ . '/../..' . '/src/Hook/Repository.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Job\\Factory' => __DIR__ . '/../..' . '/src/Job/Factory.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Job\\Repository' => __DIR__ . '/../..' . '/src/Job/Repository.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',

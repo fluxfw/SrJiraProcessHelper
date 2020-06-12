@@ -28,6 +28,15 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
 
 
     /**
+     * ilSrJiraProcessHelperPlugin constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -41,29 +50,11 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * ilSrJiraProcessHelperPlugin constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    /**
      * @inheritDoc
      */
     public function getPluginName() : string
     {
         return self::PLUGIN_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    protected function shouldUseOneUpdateStepOnly() : bool
-    {
-        return true;
     }
 
 
@@ -81,17 +72,26 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
-    protected function deleteData()/* : void*/
+    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
     {
-        self::srJiraProcessHelper()->dropTables();
+        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
     }
 
 
     /**
      * @inheritDoc
      */
-    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
+    protected function shouldUseOneUpdateStepOnly() : bool
     {
-        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
+        return true;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function deleteData()/* : void*/
+    {
+        self::srJiraProcessHelper()->dropTables();
     }
 }

@@ -41,6 +41,16 @@ class ConfigCtrl
     /**
      *
      */
+    public static function addTabs()/*: void*/
+    {
+        self::dic()->tabs()->addTab(self::TAB_CONFIGURATION, self::plugin()->translate("configuration", self::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTargetByClass(self::class, self::CMD_CONFIGURE));
+    }
+
+
+    /**
+     *
+     */
     public function executeCommand()/*:void*/
     {
         $this->setTabs();
@@ -62,16 +72,6 @@ class ConfigCtrl
                 }
                 break;
         }
-    }
-
-
-    /**
-     *
-     */
-    public static function addTabs()/*: void*/
-    {
-        self::dic()->tabs()->addTab(self::TAB_CONFIGURATION, self::plugin()->translate("configuration", self::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTargetByClass(self::class, self::CMD_CONFIGURE));
     }
 
 

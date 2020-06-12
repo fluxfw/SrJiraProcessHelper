@@ -11,6 +11,6 @@ return array(
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\JiraCurl\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/jiracurl/src'),
     'srag\\DIC\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/dic/src'),
-    'srag\\CustomInputGUIs\\' => array($vendorDir . '/srag/custominputguis/src'),
+    'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/custominputguis/src'),
     'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/activerecordconfig/src'),
 );

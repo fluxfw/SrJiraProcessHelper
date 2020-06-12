@@ -5,6 +5,7 @@ namespace srag\Plugins\SrJiraProcessHelper;
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\Plugins\SrJiraProcessHelper\Config\Repository as ConfigRepository;
+use srag\Plugins\SrJiraProcessHelper\Hook\Repository as HookRepository;
 use srag\Plugins\SrJiraProcessHelper\Job\Repository as JobsRepository;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 
@@ -29,6 +30,15 @@ final class Repository
 
 
     /**
+     * Repository constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -42,11 +52,13 @@ final class Repository
 
 
     /**
-     * Repository constructor
+     *
      */
-    private function __construct()
+    public function dropTables()/* : void*/
     {
-
+        $this->config()->dropTables();
+        $this->hook()->dropTables();
+        $this->jobs()->dropTables();
     }
 
 
@@ -60,22 +72,11 @@ final class Repository
 
 
     /**
-     *
+     * @return HookRepository
      */
-    public function dropTables()/* : void*/
+    public function hook() : HookRepository
     {
-        $this->config()->dropTables();
-        $this->jobs()->dropTables();
-    }
-
-
-    /**
-     *
-     */
-    public function installTables()/* : void*/
-    {
-        $this->config()->installTables();
-        $this->jobs()->installTables();
+        return HookRepository::getInstance();
     }
 
 
@@ -85,5 +86,16 @@ final class Repository
     public function jobs() : JobsRepository
     {
         return JobsRepository::getInstance();
+    }
+
+
+    /**
+     *
+     */
+    public function installTables()/* : void*/
+    {
+        $this->config()->installTables();
+        $this->hook()->installTables();
+        $this->jobs()->installTables();
     }
 }
