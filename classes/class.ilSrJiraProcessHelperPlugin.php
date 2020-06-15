@@ -18,9 +18,9 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
     use PluginUninstallTrait;
     use SrJiraProcessHelperTrait;
 
+    const PLUGIN_CLASS_NAME = self::class;
     const PLUGIN_ID = "srjiprohe";
     const PLUGIN_NAME = "SrJiraProcessHelper";
-    const PLUGIN_CLASS_NAME = self::class;
     /**
      * @var self|null
      */
@@ -52,6 +52,15 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
+    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
+    {
+        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getPluginName() : string
     {
         return self::PLUGIN_NAME;
@@ -72,9 +81,9 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
-    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
+    protected function deleteData()/* : void*/
     {
-        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
+        self::srJiraProcessHelper()->dropTables();
     }
 
 
@@ -84,14 +93,5 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
     protected function shouldUseOneUpdateStepOnly() : bool
     {
         return true;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    protected function deleteData()/* : void*/
-    {
-        self::srJiraProcessHelper()->dropTables();
     }
 }

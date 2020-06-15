@@ -50,15 +50,6 @@ final class Factory
 
 
     /**
-     * @return ilCronJob[]
-     */
-    public function newInstances() : array
-    {
-        return [];
-    }
-
-
-    /**
      * @param string $job_id
      *
      * @return ilCronJob|null
@@ -69,5 +60,14 @@ final class Factory
             default:
                 return null;
         }
+    }
+
+
+    /**
+     * @return ilCronJob[]
+     */
+    public function newInstances() : array
+    {
+        return [];
     }
 }

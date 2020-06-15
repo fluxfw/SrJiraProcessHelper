@@ -145,24 +145,24 @@
     },
     {
         "name": "srag/jiracurl",
-        "version": "v0.8.4",
-        "version_normalized": "0.8.4.0",
+        "version": "v0.9.0",
+        "version_normalized": "0.9.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/JiraCurl.git",
-            "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe"
+            "reference": "7ce18b2c6dfa0819332b653c4151b22a82168491"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/JiraCurl/zipball/6261c4319ddc21929a917994794b8d55b72d3cfe",
-            "reference": "6261c4319ddc21929a917994794b8d55b72d3cfe",
+            "url": "https://api.github.com/repos/studer-raimann/JiraCurl/zipball/7ce18b2c6dfa0819332b653c4151b22a82168491",
+            "reference": "7ce18b2c6dfa0819332b653c4151b22a82168491",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.0",
+            "php": ">=7.2",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2020-05-13T05:58:01+00:00",
+        "time": "2020-06-15T11:27:47+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -192,23 +192,23 @@
     },
     {
         "name": "srag/librariesnamespacechanger",
-        "version": "v0.9.6",
-        "version_normalized": "0.9.6.0",
+        "version": "v0.9.7",
+        "version_normalized": "0.9.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-            "reference": "f5451031de55e8511e9116e32288ba35d74b83f8"
+            "reference": "26d8eebf415afe713e18600cb6d1d4ade1ed35a8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/f5451031de55e8511e9116e32288ba35d74b83f8",
-            "reference": "f5451031de55e8511e9116e32288ba35d74b83f8",
+            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/26d8eebf415afe713e18600cb6d1d4ade1ed35a8",
+            "reference": "26d8eebf415afe713e18600cb6d1d4ade1ed35a8",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0"
         },
-        "time": "2020-06-11T06:43:30+00:00",
+        "time": "2020-06-15T05:33:10+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

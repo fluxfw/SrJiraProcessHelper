@@ -37,5 +37,9 @@ class Hook
     public function handle()/*:void*/
     {
         $jira_curl = self::srJiraProcessHelper()->hook()->initJiraCurl();
+
+        $issue = $jira_curl->getTicketByKey($issue_key);
+
+        $jira_curl->assignIssueToUser($issue_key, $issue["fields"]["creator"]["emailAddress"]);
     }
 }

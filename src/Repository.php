@@ -52,6 +52,15 @@ final class Repository
 
 
     /**
+     * @return ConfigRepository
+     */
+    public function config() : ConfigRepository
+    {
+        return ConfigRepository::getInstance();
+    }
+
+
+    /**
      *
      */
     public function dropTables()/* : void*/
@@ -59,15 +68,6 @@ final class Repository
         $this->config()->dropTables();
         $this->hook()->dropTables();
         $this->jobs()->dropTables();
-    }
-
-
-    /**
-     * @return ConfigRepository
-     */
-    public function config() : ConfigRepository
-    {
-        return ConfigRepository::getInstance();
     }
 
 
@@ -81,15 +81,6 @@ final class Repository
 
 
     /**
-     * @return JobsRepository
-     */
-    public function jobs() : JobsRepository
-    {
-        return JobsRepository::getInstance();
-    }
-
-
-    /**
      *
      */
     public function installTables()/* : void*/
@@ -97,5 +88,14 @@ final class Repository
         $this->config()->installTables();
         $this->hook()->installTables();
         $this->jobs()->installTables();
+    }
+
+
+    /**
+     * @return JobsRepository
+     */
+    public function jobs() : JobsRepository
+    {
+        return JobsRepository::getInstance();
     }
 }

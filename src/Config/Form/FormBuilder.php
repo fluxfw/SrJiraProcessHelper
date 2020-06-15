@@ -23,12 +23,12 @@ class FormBuilder extends AbstractFormBuilder
 
     use SrJiraProcessHelperTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
     const KEY_JIRA_AUTHORIZATION = "jira_authorization";
     const KEY_JIRA_DOMAIN = "jira_domain";
     const KEY_JIRA_PASSWORD = "jira_password";
     const KEY_JIRA_USERNAME = "jira_username";
     const KEY_MAPPING = "mapping";
+    const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
 
 
     /**

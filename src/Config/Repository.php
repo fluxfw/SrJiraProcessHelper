@@ -83,15 +83,6 @@ final class Repository extends AbstractRepository
     /**
      * @inheritDoc
      */
-    protected function getTableName() : string
-    {
-        return ilSrJiraProcessHelperPlugin::PLUGIN_ID . "_config";
-    }
-
-
-    /**
-     * @inheritDoc
-     */
     protected function getFields() : array
     {
         return [
@@ -101,5 +92,14 @@ final class Repository extends AbstractRepository
             FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
             FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true]
         ];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTableName() : string
+    {
+        return ilSrJiraProcessHelperPlugin::PLUGIN_ID . "_config";
     }
 }

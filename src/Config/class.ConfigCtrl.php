@@ -22,10 +22,10 @@ class ConfigCtrl
     use DICTrait;
     use SrJiraProcessHelperTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
     const CMD_CONFIGURE = "configure";
     const CMD_UPDATE_CONFIGURE = "updateConfigure";
     const LANG_MODULE = "config";
+    const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
     const TAB_CONFIGURATION = "configuration";
 
 
@@ -78,15 +78,6 @@ class ConfigCtrl
     /**
      *
      */
-    protected function setTabs()/*: void*/
-    {
-
-    }
-
-
-    /**
-     *
-     */
     protected function configure()/*: void*/
     {
         self::dic()->tabs()->activateTab(self::TAB_CONFIGURATION);
@@ -94,6 +85,15 @@ class ConfigCtrl
         $form = self::srJiraProcessHelper()->config()->factory()->newFormBuilderInstance($this);
 
         self::output()->output($form);
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*: void*/
+    {
+
     }
 
 
