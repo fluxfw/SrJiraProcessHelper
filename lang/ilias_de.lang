@@ -10,3 +10,4 @@ config_mapping#:#Mapping
 config_mapping_assign_jira_user#:#Jira-Benutzer zuweisen
 config_mapping_email_domain#:#E-Mail-Domain
 config_save#:#Speichern
+config_secret#:#secret

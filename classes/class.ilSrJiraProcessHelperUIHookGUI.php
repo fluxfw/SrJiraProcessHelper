@@ -28,7 +28,7 @@ class ilSrJiraProcessHelperUIHookGUI extends ilUIHookPluginGUI
         preg_match("/^uihk_" . ilSrJiraProcessHelperPlugin::PLUGIN_ID . "$/uim", $target, $matches);
 
         if (is_array($matches) && count($matches) >= 1) {
-            //self::srJiraProcessHelper()->hook()->factory()->newInstance()->handle();
+            self::srJiraProcessHelper()->hook()->factory()->newInstance()->handle();
             exit;
         }
     }

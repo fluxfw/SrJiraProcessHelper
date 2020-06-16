@@ -28,6 +28,7 @@ class FormBuilder extends AbstractFormBuilder
     const KEY_JIRA_PASSWORD = "jira_password";
     const KEY_JIRA_USERNAME = "jira_username";
     const KEY_MAPPING = "mapping";
+    const KEY_SECRET = "secret";
     const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
 
 
@@ -73,6 +74,9 @@ class FormBuilder extends AbstractFormBuilder
             ],
             self::KEY_MAPPING => [
                 self::KEY_MAPPING => self::srJiraProcessHelper()->config()->getValue(self::KEY_MAPPING)
+            ],
+            self::KEY_SECRET  => [
+                self::KEY_SECRET => self::srJiraProcessHelper()->config()->getValue(self::KEY_SECRET)
             ]
         ];
 
@@ -131,7 +135,11 @@ class FormBuilder extends AbstractFormBuilder
             ], self::plugin()->translate("jira", ConfigCtrl::LANG_MODULE)),
             self::KEY_MAPPING => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_MAPPING => $mapping
-            ], self::plugin()->translate(self::KEY_MAPPING, ConfigCtrl::LANG_MODULE))
+            ], self::plugin()->translate(self::KEY_MAPPING, ConfigCtrl::LANG_MODULE)),
+            self::KEY_SECRET  => self::dic()->ui()->factory()->input()->field()->section([
+                self::KEY_SECRET => self::dic()->ui()->factory()->input()->field()->password(self::plugin()
+                    ->translate(self::KEY_SECRET, ConfigCtrl::LANG_MODULE))->withRequired(true)
+            ], self::plugin()->translate(self::KEY_SECRET, ConfigCtrl::LANG_MODULE))
         ];
 
         return $fields;
@@ -163,5 +171,6 @@ class FormBuilder extends AbstractFormBuilder
             self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]->toString());
         }
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MAPPING, (array) $data[self::KEY_MAPPING][self::KEY_MAPPING]);
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_SECRET, $data[self::KEY_SECRET][self::KEY_SECRET]->toString());
     }
 }

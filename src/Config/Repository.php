@@ -90,7 +90,8 @@ final class Repository extends AbstractRepository
             FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
-            FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true]
+            FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true],
+            FormBuilder::KEY_SECRET             => Config::TYPE_STRING,
         ];
     }
 
