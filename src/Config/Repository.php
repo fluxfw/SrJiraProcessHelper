@@ -86,9 +86,12 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
+            //FormBuilder::KEY_JIRA_ACCESS_TOKEN  => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_AUTHORIZATION => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
+            //FormBuilder::KEY_JIRA_CONSUMER_KEY  => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
+            //FormBuilder::KEY_JIRA_PRIVATE_KEY   => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
             FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true],
             FormBuilder::KEY_SECRET             => Config::TYPE_STRING,
