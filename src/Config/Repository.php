@@ -68,9 +68,16 @@ final class Repository extends AbstractRepository
     public function setValue(string $name, $value)/*: void*/
     {
         if ($name === FormBuilder::KEY_MAPPING) {
-            usort($value, function (array $a1, array $a2) : int {
-                $n1 = $a1["email_domain"];
-                $n2 = $a2["email_domain"];
+            $value = array_map(function (array $mapping) : array {
+                $mapping["email_domain"] = ltrim(trim($mapping["email_domain"]), "@");
+                $mapping["assign_jira_user"] = trim($mapping["email_domain"]);
+
+                return $mapping;
+            }, $value);
+
+            usort($value, function (array $mapping1, array $mapping2) : int {
+                $n1 = $mapping1["email_domain"];
+                $n2 = $mapping2["email_domain"];
 
                 return strnatcasecmp($n1, $n2);
             });
