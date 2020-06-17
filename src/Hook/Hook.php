@@ -62,7 +62,7 @@ class Hook
                 throw new Exception("Invalid issue result");
             }
 
-            $email = $issue["fields"]["creator"]["emailAddress"];
+            $email = $issue["fields"]["reporter"]["emailAddress"];
             $email_domain = explode("@", $email)[1];
             if (empty($email_domain)) {
                 throw new Exception("Invalid email address of creator " . $email);

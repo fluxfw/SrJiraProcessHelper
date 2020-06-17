@@ -68,9 +68,16 @@ final class Repository extends AbstractRepository
     public function setValue(string $name, $value)/*: void*/
     {
         if ($name === FormBuilder::KEY_MAPPING) {
-            usort($value, function (array $a1, array $a2) : int {
-                $n1 = $a1["email_domain"];
-                $n2 = $a2["email_domain"];
+            $value = array_map(function (array $mapping) : array {
+                $mapping["email_domain"] = ltrim(trim($mapping["email_domain"]), "@");
+                $mapping["assign_jira_user"] = trim($mapping["email_domain"]);
+
+                return $mapping;
+            }, $value);
+
+            usort($value, function (array $mapping1, array $mapping2) : int {
+                $n1 = $mapping1["email_domain"];
+                $n2 = $mapping2["email_domain"];
 
                 return strnatcasecmp($n1, $n2);
             });
@@ -86,9 +93,12 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
+            //FormBuilder::KEY_JIRA_ACCESS_TOKEN  => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_AUTHORIZATION => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
+            //FormBuilder::KEY_JIRA_CONSUMER_KEY  => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
+            //FormBuilder::KEY_JIRA_PRIVATE_KEY   => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
             FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true],
             FormBuilder::KEY_SECRET             => Config::TYPE_STRING,
