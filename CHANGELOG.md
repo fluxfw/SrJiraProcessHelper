@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.2]
+- Fix save jira user assigment
+
 ## [1.0.1]
 - Fix reporter field
 - Trim email domains
