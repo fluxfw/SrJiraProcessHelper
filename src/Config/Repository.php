@@ -70,7 +70,7 @@ final class Repository extends AbstractRepository
         if ($name === FormBuilder::KEY_MAPPING) {
             $value = array_map(function (array $mapping) : array {
                 $mapping["email_domain"] = ltrim(trim($mapping["email_domain"]), "@");
-                $mapping["assign_jira_user"] = trim($mapping["email_domain"]);
+                $mapping["assign_jira_user"] = trim($mapping["assign_jira_user"]);
 
                 return $mapping;
             }, $value);
