@@ -1,7 +1,7 @@
 {
   "name": "srag/plugins/srjiraprocesshelper",
   "description": "",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "ilias_plugin": {
     "id": "srjiprohe",
     "ilias_min_version": "5.4.0",
