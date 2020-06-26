@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.1.0]
+- Bexio offer emails
+
 ## [1.0.2]
 - Fix save jira user assigment
 

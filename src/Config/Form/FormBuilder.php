@@ -23,6 +23,9 @@ class FormBuilder extends AbstractFormBuilder
 
     use SrJiraProcessHelperTrait;
 
+    const KEY_BEXIO_OFFER_EMAILS = "bexio_offer_emails";
+    const KEY_BEXIO_OFFER_EMAILS_LINK_TYPE = "bexio_offer_emails_link_type";
+    const KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD = "bexio_offer_emails_offer_url_field";
     //const KEY_JIRA_ACCESS_TOKEN = "jira_access_token";
     const KEY_JIRA_AUTHORIZATION = "jira_authorization";
     const KEY_JIRA_DOMAIN = "jira_domain";
@@ -65,7 +68,7 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
-            "jira"            => [
+            "jira"                       => [
                 self::KEY_JIRA_DOMAIN        => self::srJiraProcessHelper()->config()->getValue(self::KEY_JIRA_DOMAIN),
                 self::KEY_JIRA_AUTHORIZATION => [
                     "value"        => self::srJiraProcessHelper()->config()->getValue(self::KEY_JIRA_AUTHORIZATION),
@@ -88,11 +91,16 @@ class FormBuilder extends AbstractFormBuilder
                     })()
                 ]
             ],
-            self::KEY_MAPPING => [
+            self::KEY_SECRET             => [
+                self::KEY_SECRET => self::srJiraProcessHelper()->config()->getValue(self::KEY_SECRET)
+            ],
+            self::KEY_MAPPING            => [
                 self::KEY_MAPPING => self::srJiraProcessHelper()->config()->getValue(self::KEY_MAPPING)
             ],
-            self::KEY_SECRET  => [
-                self::KEY_SECRET => self::srJiraProcessHelper()->config()->getValue(self::KEY_SECRET)
+            self::KEY_BEXIO_OFFER_EMAILS => [
+                self::KEY_BEXIO_OFFER_EMAILS                 => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS),
+                self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD),
+                self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE)
             ]
         ];
 
@@ -159,18 +167,33 @@ class FormBuilder extends AbstractFormBuilder
         $input->setRequired(true);
         $mapping->getInput()->addInput($input);
 
+        $bexio_mails = (new InputGUIWrapperUIInputComponent(new MultiLineNewInputGUI(self::plugin()
+            ->translate(self::KEY_BEXIO_OFFER_EMAILS, ConfigCtrl::LANG_MODULE))))->withRequired(true);
+        $bexio_mails->getInput()->setShowSort(false);
+        $input = new ilTextInputGUI(self::plugin()
+            ->translate(self::KEY_BEXIO_OFFER_EMAILS . "_email_address", ConfigCtrl::LANG_MODULE), "email_address");
+        $input->setRequired(true);
+        $bexio_mails->getInput()->addInput($input);
+
         $fields = [
-            "jira"            => self::dic()->ui()->factory()->input()->field()->section([
+            "jira"                       => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_JIRA_DOMAIN        => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_JIRA_DOMAIN, ConfigCtrl::LANG_MODULE))->withRequired(true),
                 self::KEY_JIRA_AUTHORIZATION => $jira_authorization
             ], self::plugin()->translate("jira", ConfigCtrl::LANG_MODULE)),
-            self::KEY_MAPPING => self::dic()->ui()->factory()->input()->field()->section([
-                self::KEY_MAPPING => $mapping
-            ], self::plugin()->translate(self::KEY_MAPPING, ConfigCtrl::LANG_MODULE)),
-            self::KEY_SECRET  => self::dic()->ui()->factory()->input()->field()->section([
+            self::KEY_SECRET             => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_SECRET => self::dic()->ui()->factory()->input()->field()->password(self::plugin()
                     ->translate(self::KEY_SECRET, ConfigCtrl::LANG_MODULE))->withRequired(true)
-            ], self::plugin()->translate(self::KEY_SECRET, ConfigCtrl::LANG_MODULE))
+            ], self::plugin()->translate(self::KEY_SECRET, ConfigCtrl::LANG_MODULE)),
+            self::KEY_MAPPING            => self::dic()->ui()->factory()->input()->field()->section([
+                self::KEY_MAPPING => $mapping
+            ], self::plugin()->translate(self::KEY_MAPPING, ConfigCtrl::LANG_MODULE)),
+            self::KEY_BEXIO_OFFER_EMAILS => self::dic()->ui()->factory()->input()->field()->section([
+                self::KEY_BEXIO_OFFER_EMAILS                 => $bexio_mails,
+                self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
+                    ->translate(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD, ConfigCtrl::LANG_MODULE))->withRequired(true),
+                self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
+                    ->translate(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE, ConfigCtrl::LANG_MODULE))->withRequired(true),
+            ], self::plugin()->translate(self::KEY_BEXIO_OFFER_EMAILS, ConfigCtrl::LANG_MODULE))
         ];
 
         return $fields;
@@ -225,7 +248,12 @@ class FormBuilder extends AbstractFormBuilder
                     break;
             }
         }
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_MAPPING, (array) $data[self::KEY_MAPPING][self::KEY_MAPPING]);
         self::srJiraProcessHelper()->config()->setValue(self::KEY_SECRET, $data[self::KEY_SECRET][self::KEY_SECRET]->toString());
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_MAPPING, (array) $data[self::KEY_MAPPING][self::KEY_MAPPING]);
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_OFFER_EMAILS, (array) $data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_BEXIO_OFFER_EMAILS]);
+        self::srJiraProcessHelper()
+            ->config()
+            ->setValue(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD, strval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE, strval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE]));
     }
 }

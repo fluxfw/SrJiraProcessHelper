@@ -83,6 +83,21 @@ final class Repository extends AbstractRepository
             });
         }
 
+        if ($name === FormBuilder::KEY_BEXIO_OFFER_EMAILS) {
+            $value = array_map(function (array $mapping) : array {
+                $mapping["email_address"] = trim($mapping["email_address"]);
+
+                return $mapping;
+            }, $value);
+
+            usort($value, function (array $mapping1, array $mapping2) : int {
+                $n1 = $mapping1["email_address"];
+                $n2 = $mapping2["email_address"];
+
+                return strnatcasecmp($n1, $n2);
+            });
+        }
+
         parent::setValue($name, $value);
     }
 
@@ -93,15 +108,18 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
+            FormBuilder::KEY_BEXIO_OFFER_EMAILS                 => [Config::TYPE_JSON, [], true],
+            FormBuilder::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => Config::TYPE_STRING,
+            FormBuilder::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => Config::TYPE_STRING,
             //FormBuilder::KEY_JIRA_ACCESS_TOKEN  => Config::TYPE_STRING,
-            FormBuilder::KEY_JIRA_AUTHORIZATION => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
+            FormBuilder::KEY_JIRA_AUTHORIZATION                 => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
             //FormBuilder::KEY_JIRA_CONSUMER_KEY  => Config::TYPE_STRING,
-            FormBuilder::KEY_JIRA_DOMAIN        => Config::TYPE_STRING,
-            FormBuilder::KEY_JIRA_PASSWORD      => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_DOMAIN                        => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_PASSWORD                      => Config::TYPE_STRING,
             //FormBuilder::KEY_JIRA_PRIVATE_KEY   => Config::TYPE_STRING,
-            FormBuilder::KEY_JIRA_USERNAME      => Config::TYPE_STRING,
-            FormBuilder::KEY_MAPPING            => [Config::TYPE_JSON, [], true],
-            FormBuilder::KEY_SECRET             => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_USERNAME                      => Config::TYPE_STRING,
+            FormBuilder::KEY_MAPPING                            => [Config::TYPE_JSON, [], true],
+            FormBuilder::KEY_SECRET                             => Config::TYPE_STRING,
         ];
     }
 
