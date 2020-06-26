@@ -6,6 +6,7 @@ use Exception;
 use ilLogLevel;
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
+use srag\JiraCurl\SrJiraProcessHelper\JiraCurl;
 use srag\Plugins\SrJiraProcessHelper\Config\Form\FormBuilder;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use Throwable;
@@ -24,6 +25,14 @@ class Hook
     use SrJiraProcessHelperTrait;
 
     const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
+    /**
+     * @var array
+     */
+    protected $issue;
+    /**
+     * @var JiraCurl
+     */
+    protected $jira_curl;
 
 
     /**
@@ -38,7 +47,7 @@ class Hook
     /**
      *
      */
-    public function handle()/*:void*/
+    public function handle()/* : void*/
     {
         try {
             $post = json_decode(file_get_contents("php://input"), true);
@@ -51,36 +60,91 @@ class Hook
                 throw new Exception("Invalid post input");
             }
 
-            $jira_curl = self::srJiraProcessHelper()->hook()->initJiraCurl();
+            $this->jira_curl = self::srJiraProcessHelper()->hook()->initJiraCurl();
 
-            $issue = $jira_curl->getTicketByKey($post["issue_key"]);
+            $this->issue = $this->jira_curl->getTicketByKey($post["issue_key"]);
             if (
-                empty($issue)
-                || empty($issue["key"])
-                || empty($issue["fields"]["creator"]["emailAddress"])
+                empty($this->issue)
+                || empty($this->issue["key"])
+                || empty($this->issue["fields"]["creator"]["emailAddress"])
             ) {
                 throw new Exception("Invalid issue result");
             }
 
-            $email = $issue["fields"]["reporter"]["emailAddress"];
-            $email_domain = explode("@", $email)[1];
-            if (empty($email_domain)) {
-                throw new Exception("Invalid email address of creator " . $email);
+            try {
+                $this->handleMapping();
+            } catch (Throwable $ex) {
+                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
             }
 
-            $assigned = false;
-            foreach (self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MAPPING) as $mapping) {
-                if ($mapping["email_domain"] === $email_domain) {
-                    $jira_curl->assignIssueToUser($issue["key"], $mapping["assign_jira_user"]);
-                    $assigned = true;
-                    break;
-                }
-            }
-            if (!$assigned) {
-                throw new Exception("No Jira user found for email domain " . $email_domain);
+            try {
+                $this->handleBexioOfferEmails();
+            } catch (Throwable $ex) {
+                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
             }
         } catch (Throwable $ex) {
             self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function handleBexioOfferEmails()/* : void*/
+    {
+        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
+        if (empty(array_filter(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS), function (array $bexio_offer_email) use ($reporter_email): bool {
+            return ($bexio_offer_email["email_address"] === $reporter_email);
+        }))
+        ) {
+            return;
+        };
+
+        $issue_text = $this->issue["fields"]["description"];
+        $issue_text_lines = explode("\n", $issue_text);
+        $issue_text_last_line = trim(end($issue_text_lines));
+        if (empty($issue_text_last_line)) {
+            throw new Exception("Invalid bexio offer url at last text line");
+        }
+
+        foreach (
+            $this->jira_curl->getTicketsByJQL($this->jira_curl->escapeJQLValue(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD)) . "="
+                . $this->jira_curl->escapeJQLValue($issue_text_last_line)) as $issue
+        ) {
+            if (
+                empty($issue)
+                || empty($issue["key"])
+            ) {
+                throw new Exception("Invalid issue result");
+            }
+
+            $this->jira_curl->linkTickets($this->issue["key"], $issue["key"], self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE));
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function handleMapping()/* : void*/
+    {
+        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
+        $reporter_email_domain = explode("@", $reporter_email)[1];
+        if (empty($reporter_email_domain)) {
+            throw new Exception("Invalid email address of reporter");
+        }
+
+        $assigned = false;
+        foreach (self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MAPPING) as $mapping) {
+            if ($mapping["email_domain"] === $reporter_email_domain) {
+                $this->jira_curl->assignIssueToUser($this->issue["key"], $mapping["assign_jira_user"]);
+                $assigned = true;
+                break;
+            }
+        }
+        if (!$assigned) {
+            throw new Exception("No Jira user found for email domain " . $reporter_email_domain);
         }
     }
 }

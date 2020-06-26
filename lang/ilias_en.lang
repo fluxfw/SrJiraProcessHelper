@@ -1,3 +1,7 @@
+config_bexio_offer_emails#:#Bexio offer emails
+config_bexio_offer_emails_email_address#:#Email address
+config_bexio_offer_emails_link_type#:#Link type
+config_bexio_offer_emails_offer_url_field#:#Offer url field
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_jira#:#Jira
