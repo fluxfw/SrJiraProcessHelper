@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrJiraProcessHelper\Hook;
+namespace srag\Plugins\SrJiraProcessHelper\WebHook;
 
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
@@ -9,7 +9,7 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 /**
  * Class Factory
  *
- * @package srag\Plugins\SrJiraProcessHelper\Hook
+ * @package srag\Plugins\SrJiraProcessHelper\WebHook
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -51,9 +51,9 @@ final class Factory
     /**
      * @inheritDoc
      */
-    public function newInstance() : Hook
+    public function newInstance() : WebHook
     {
-        $hook = new Hook();
+        $hook = new WebHook();
 
         return $hook;
     }

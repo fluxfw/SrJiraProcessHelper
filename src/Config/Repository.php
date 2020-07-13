@@ -108,9 +108,15 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
+            FormBuilder::KEY_BEXIO_API_KEY                      => Config::TYPE_STRING,
+            FormBuilder::KEY_BEXIO_DOMAIN                       => Config::TYPE_STRING,
+            FormBuilder::KEY_BEXIO_NAME                         => Config::TYPE_STRING,
             FormBuilder::KEY_BEXIO_OFFER_EMAILS                 => [Config::TYPE_JSON, [], true],
             FormBuilder::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => Config::TYPE_STRING,
             FormBuilder::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => Config::TYPE_STRING,
+            FormBuilder::KEY_ENABLE_BEXIO_OFFER_EMAILS          => Config::TYPE_BOOLEAN,
+            FormBuilder::KEY_ENABLE_JIRA_WEB_HOOK               => Config::TYPE_BOOLEAN,
+            FormBuilder::KEY_ENABLE_MAPPING                     => Config::TYPE_BOOLEAN,
             //FormBuilder::KEY_JIRA_ACCESS_TOKEN  => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_AUTHORIZATION                 => [Config::TYPE_STRING, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD],
             //FormBuilder::KEY_JIRA_CONSUMER_KEY  => Config::TYPE_STRING,
@@ -118,8 +124,8 @@ final class Repository extends AbstractRepository
             FormBuilder::KEY_JIRA_PASSWORD                      => Config::TYPE_STRING,
             //FormBuilder::KEY_JIRA_PRIVATE_KEY   => Config::TYPE_STRING,
             FormBuilder::KEY_JIRA_USERNAME                      => Config::TYPE_STRING,
-            FormBuilder::KEY_MAPPING                            => [Config::TYPE_JSON, [], true],
-            FormBuilder::KEY_SECRET                             => Config::TYPE_STRING,
+            FormBuilder::KEY_JIRA_WEB_HOOK_SECRET               => Config::TYPE_STRING,
+            FormBuilder::KEY_MAPPING                            => [Config::TYPE_JSON, [], true]
         ];
     }
 
