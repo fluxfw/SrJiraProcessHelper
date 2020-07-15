@@ -66,8 +66,8 @@ final class Repository
     public function dropTables()/* : void*/
     {
         $this->config()->dropTables();
-        $this->webHook()->dropTables();
         $this->jobs()->dropTables();
+        $this->webHook()->dropTables();
     }
 
 
@@ -77,8 +77,8 @@ final class Repository
     public function installTables()/* : void*/
     {
         $this->config()->installTables();
-        $this->webHook()->installTables();
         $this->jobs()->installTables();
+        $this->webHook()->installTables();
     }
 
 
