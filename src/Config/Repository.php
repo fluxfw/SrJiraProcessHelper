@@ -108,9 +108,6 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
-            FormBuilder::KEY_BEXIO_API_KEY                      => Config::TYPE_STRING,
-            FormBuilder::KEY_BEXIO_DOMAIN                       => Config::TYPE_STRING,
-            FormBuilder::KEY_BEXIO_NAME                         => Config::TYPE_STRING,
             FormBuilder::KEY_BEXIO_OFFER_EMAILS                 => [Config::TYPE_JSON, [], true],
             FormBuilder::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => Config::TYPE_STRING,
             FormBuilder::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => Config::TYPE_STRING,

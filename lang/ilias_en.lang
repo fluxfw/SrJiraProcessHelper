@@ -1,7 +1,3 @@
-config_bexio#:#Bexio
-config_bexio_api_key#:#API key
-config_bexio_domain#:#Domain name
-config_bexio_name#:#Name
 config_bexio_offer_emails#:#Bexio offer emails
 config_bexio_offer_emails_email_address#:#Email address
 config_bexio_offer_emails_link_type#:#Link type

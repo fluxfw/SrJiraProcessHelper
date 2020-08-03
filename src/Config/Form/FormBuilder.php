@@ -23,9 +23,6 @@ class FormBuilder extends AbstractFormBuilder
 
     use SrJiraProcessHelperTrait;
 
-    const KEY_BEXIO_API_KEY = "bexio_api_key";
-    const KEY_BEXIO_DOMAIN = "bexio_domain";
-    const KEY_BEXIO_NAME = "bexio_name";
     const KEY_BEXIO_OFFER_EMAILS = "bexio_offer_emails";
     const KEY_BEXIO_OFFER_EMAILS_LINK_TYPE = "bexio_offer_emails_link_type";
     const KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD = "bexio_offer_emails_offer_url_field";
@@ -96,11 +93,6 @@ class FormBuilder extends AbstractFormBuilder
                         }
                     })()
                 ]
-            ],
-            "bexio"                      => [
-                self::KEY_BEXIO_DOMAIN  => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_DOMAIN),
-                self::KEY_BEXIO_API_KEY => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_API_KEY),
-                self::KEY_BEXIO_NAME    => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_NAME)
             ],
             "jira_web_hook"              => [
                 self::KEY_ENABLE_JIRA_WEB_HOOK => self::srJiraProcessHelper()->config()->getValue(self::KEY_ENABLE_JIRA_WEB_HOOK),
@@ -194,13 +186,6 @@ class FormBuilder extends AbstractFormBuilder
                 self::KEY_JIRA_DOMAIN        => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_JIRA_DOMAIN, ConfigCtrl::LANG_MODULE))->withRequired(true),
                 self::KEY_JIRA_AUTHORIZATION => $jira_authorization
             ], self::plugin()->translate("jira", ConfigCtrl::LANG_MODULE)),
-            "bexio"                      => self::dic()->ui()->factory()->input()->field()->section([
-                self::KEY_BEXIO_DOMAIN  => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_BEXIO_DOMAIN, ConfigCtrl::LANG_MODULE))->withRequired(true),
-                self::KEY_BEXIO_API_KEY => self::dic()->ui()->factory()->input()->field()->password(self::plugin()
-                    ->translate(self::KEY_BEXIO_API_KEY, ConfigCtrl::LANG_MODULE))->withRequired(true),
-                self::KEY_BEXIO_NAME    => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
-                    ->translate(self::KEY_BEXIO_NAME, ConfigCtrl::LANG_MODULE))->withRequired(true)
-            ], self::plugin()->translate("bexio", ConfigCtrl::LANG_MODULE)),
             "jira_web_hook"              => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_ENABLE_JIRA_WEB_HOOK => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()->translate("enable", ConfigCtrl::LANG_MODULE)),
                 self::KEY_JIRA_WEB_HOOK_SECRET => self::dic()->ui()->factory()->input()->field()->password(self::plugin()
@@ -273,9 +258,6 @@ class FormBuilder extends AbstractFormBuilder
                     break;
             }
         }
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_DOMAIN, strval($data["bexio"][self::KEY_BEXIO_DOMAIN]));
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_API_KEY, $data["bexio"][self::KEY_BEXIO_API_KEY]->toString());
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_NAME, strval($data["bexio"][self::KEY_BEXIO_NAME]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_JIRA_WEB_HOOK, boolval($data["jira_web_hook"][self::KEY_ENABLE_JIRA_WEB_HOOK]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_WEB_HOOK_SECRET, $data["jira_web_hook"][self::KEY_JIRA_WEB_HOOK_SECRET]->toString());
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MAPPING, boolval($data[self::KEY_MAPPING][self::KEY_ENABLE_MAPPING]));
