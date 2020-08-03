@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Min. PHP 7.2
+
 ## [1.1.0]
 - Bexio offer emails
 

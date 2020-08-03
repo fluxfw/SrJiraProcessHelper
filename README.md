@@ -21,7 +21,7 @@ You need also to install [SrJiraProcessHelperCron](https://github.com/studer-rai
 
 ## Requirements
 * ILIAS 5.4.0 - 6.999
-* PHP >=7.0
+* PHP >=7.2
 
 ## Adjustment suggestions
 * External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PJPH

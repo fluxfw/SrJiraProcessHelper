@@ -65,7 +65,7 @@ final class Repository extends AbstractRepository
     /**
      * @inheritDoc
      */
-    public function setValue(string $name, $value)/*: void*/
+    public function setValue(string $name, $value) : void
     {
         if ($name === FormBuilder::KEY_MAPPING) {
             $value = array_map(function (array $mapping) : array {

@@ -222,7 +222,7 @@ class FormBuilder extends AbstractFormBuilder
     /**
      * @inheritDoc
      */
-    protected function storeData(array $data)/* : void*/
+    protected function storeData(array $data) : void
     {
         self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_DOMAIN, strval($data["jira"][self::KEY_JIRA_DOMAIN]));
         if (self::version()->is6()) {

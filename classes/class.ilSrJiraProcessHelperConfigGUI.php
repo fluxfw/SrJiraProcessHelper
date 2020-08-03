@@ -33,7 +33,7 @@ class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
     /**
      * @inheritDoc
      */
-    public function performCommand(/*string*/ $cmd)/*:void*/
+    public function performCommand(/*string*/ $cmd) : void
     {
         $this->setTabs();
 
@@ -63,7 +63,7 @@ class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
     /**
      *
      */
-    protected function configure()/*: void*/
+    protected function configure() : void
     {
         self::dic()->ctrl()->redirectByClass(ConfigCtrl::class, ConfigCtrl::CMD_CONFIGURE);
     }
@@ -72,7 +72,7 @@ class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
         ConfigCtrl::addTabs();
 

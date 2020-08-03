@@ -82,7 +82,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function addAttachmentsToIssue(string $issue_key, array $attachments)/* : void*/
+    public function addAttachmentsToIssue(string $issue_key, array $attachments) : void
     {
         if (empty($attachments)) {
             return;
@@ -121,7 +121,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function addAttachmentsToServiceDeskRequest(int $service_desk_id, string $request_ticket_key, array $attachments)/* : void*/
+    public function addAttachmentsToServiceDeskRequest(int $service_desk_id, string $request_ticket_key, array $attachments) : void
     {
         if (empty($attachments)) {
             return;
@@ -180,7 +180,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function assignIssueToUser(string $issue_key, /*?string*/ $user = null)/* : void*/
+    public function assignIssueToUser(string $issue_key, ?string $user = null) : void
     {
         $headers = [
             "Accept"       => "application/json",
@@ -278,7 +278,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function createServiceDeskRequest(int $service_desk_id, int $request_type_id, string $summary, string $description, /*?string*/ $customer = null) : string
+    public function createServiceDeskRequest(int $service_desk_id, int $request_type_id, string $summary, string $description, ?string $customer = null) : string
     {
         $headers = [
             "Accept"       => "application/json",
@@ -372,7 +372,7 @@ class JiraCurl
     /**
      * @param string $jira_access_token
      */
-    public function setJiraAccessToken(string $jira_access_token)/* : void*/
+    public function setJiraAccessToken(string $jira_access_token) : void
     {
         $this->jira_access_token = $jira_access_token;
     }
@@ -390,7 +390,7 @@ class JiraCurl
     /**
      * @param string $jira_authorization
      */
-    public function setJiraAuthorization(string $jira_authorization)/* : void*/
+    public function setJiraAuthorization(string $jira_authorization) : void
     {
         $this->jira_authorization = $jira_authorization;
     }
@@ -408,7 +408,7 @@ class JiraCurl
     /**
      * @param string $jira_consumer_key
      */
-    public function setJiraConsumerKey(string $jira_consumer_key)/* : void*/
+    public function setJiraConsumerKey(string $jira_consumer_key) : void
     {
         $this->jira_consumer_key = $jira_consumer_key;
     }
@@ -426,7 +426,7 @@ class JiraCurl
     /**
      * @param string $jira_domain
      */
-    public function setJiraDomain(string $jira_domain)/* : void*/
+    public function setJiraDomain(string $jira_domain) : void
     {
         $this->jira_domain = $jira_domain;
     }
@@ -444,7 +444,7 @@ class JiraCurl
     /**
      * @param string $jira_password
      */
-    public function setJiraPassword(string $jira_password)/* : void*/
+    public function setJiraPassword(string $jira_password) : void
     {
         $this->jira_password = $jira_password;
     }
@@ -462,7 +462,7 @@ class JiraCurl
     /**
      * @param string $jira_private_key
      */
-    public function setJiraPrivateKey(string $jira_private_key)/* : void*/
+    public function setJiraPrivateKey(string $jira_private_key) : void
     {
         $this->jira_private_key = $jira_private_key;
     }
@@ -480,7 +480,7 @@ class JiraCurl
     /**
      * @param string $jira_username
      */
-    public function setJiraUsername(string $jira_username)/* : void*/
+    public function setJiraUsername(string $jira_username) : void
     {
         $this->jira_username = $jira_username;
     }
@@ -581,7 +581,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function linkTickets(string $ticket_key_1, string $ticket_key_2, string $link_type)/* : void*/
+    public function linkTickets(string $ticket_key_1, string $ticket_key_2, string $link_type) : void
     {
         $headers = [
             "Accept"       => "application/json",

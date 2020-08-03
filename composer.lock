@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c140c5c008da0e000e9c32273b20df0d",
+    "content-hash": "a14710c4e4a3364fdc294b64f1b0aaf7",
     "packages": [
         {
             "name": "srag/activerecordconfig",
@@ -28,7 +28,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\SrJiraProcessHelper\\": "src/"
+                    "srag\\ActiveRecordConfig\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -54,16 +54,16 @@
         },
         {
             "name": "srag/custominputguis",
-            "version": "v0.36.4",
+            "version": "v0.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-                "reference": "641ae0b77aea016e62dc210404b6c7c636613e3f"
+                "reference": "0a0819d962d126f940b083c59a8ad99646a358af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/641ae0b77aea016e62dc210404b6c7c636613e3f",
-                "reference": "641ae0b77aea016e62dc210404b6c7c636613e3f",
+                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/0a0819d962d126f940b083c59a8ad99646a358af",
+                "reference": "0a0819d962d126f940b083c59a8ad99646a358af",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\SrJiraProcessHelper\\": "src/"
+                    "srag\\CustomInputGUIs\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -97,7 +97,7 @@
                 "input",
                 "table"
             ],
-            "time": "2020-06-15T12:55:41+00:00"
+            "time": "2020-07-22T13:00:47+00:00"
         },
         {
             "name": "srag/dic",
@@ -119,7 +119,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\SrJiraProcessHelper\\": "src/"
+                    "srag\\DIC\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -165,7 +165,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\JiraCurl\\SrJiraProcessHelper\\": "src/"
+                    "srag\\JiraCurl\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -253,7 +253,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -287,7 +287,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.2"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"

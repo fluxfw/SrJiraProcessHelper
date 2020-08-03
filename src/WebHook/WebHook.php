@@ -47,7 +47,7 @@ class WebHook
     /**
      *
      */
-    public function handle()/* : void*/
+    public function handle() : void
     {
         if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_JIRA_WEB_HOOK)) {
             return;
@@ -95,7 +95,7 @@ class WebHook
     /**
      *
      */
-    protected function handleBexioOfferEmails()/* : void*/
+    protected function handleBexioOfferEmails() : void
     {
         if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_BEXIO_OFFER_EMAILS)) {
             return;
@@ -135,7 +135,7 @@ class WebHook
     /**
      *
      */
-    protected function handleMapping()/* : void*/
+    protected function handleMapping() : void
     {
         if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_MAPPING)) {
             return;
