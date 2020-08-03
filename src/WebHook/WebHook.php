@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrJiraProcessHelper\Hook;
+namespace srag\Plugins\SrJiraProcessHelper\WebHook;
 
 use Exception;
 use ilLogLevel;
@@ -12,13 +12,13 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use Throwable;
 
 /**
- * Class Hook
+ * Class WebHook
  *
- * @package srag\Plugins\SrJiraProcessHelper\Hook
+ * @package srag\Plugins\SrJiraProcessHelper\WebHook
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class Hook
+class WebHook
 {
 
     use DICTrait;
@@ -49,18 +49,22 @@ class Hook
      */
     public function handle()/* : void*/
     {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_JIRA_WEB_HOOK)) {
+            return;
+        }
+
         try {
             $post = json_decode(file_get_contents("php://input"), true);
             if (
                 !is_array($post)
                 || empty($post["issue_key"])
                 || empty($post["secret"])
-                || $post["secret"] !== self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_SECRET)
+                || $post["secret"] !== self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_JIRA_WEB_HOOK_SECRET)
             ) {
                 throw new Exception("Invalid post input");
             }
 
-            $this->jira_curl = self::srJiraProcessHelper()->hook()->initJiraCurl();
+            $this->jira_curl = self::srJiraProcessHelper()->webHook()->initJiraCurl();
 
             $this->issue = $this->jira_curl->getTicketByKey($post["issue_key"]);
             if (
@@ -93,6 +97,10 @@ class Hook
      */
     protected function handleBexioOfferEmails()/* : void*/
     {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_BEXIO_OFFER_EMAILS)) {
+            return;
+        }
+
         $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
         if (empty(array_filter(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS), function (array $bexio_offer_email) use ($reporter_email): bool {
             return ($bexio_offer_email["email_address"] === $reporter_email);
@@ -129,6 +137,10 @@ class Hook
      */
     protected function handleMapping()/* : void*/
     {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_MAPPING)) {
+            return;
+        }
+
         $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
         $reporter_email_domain = explode("@", $reporter_email)[1];
         if (empty($reporter_email_domain)) {
