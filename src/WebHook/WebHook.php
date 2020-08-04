@@ -199,8 +199,7 @@ class WebHook
             $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbSlas($contact["slas"], self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_TYPE)),
                 function (array $products, array $sla) use ($contact) : array {
                     $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbProducts($sla["products"]), function (array $products, array $product) use ($contact, $sla) : array {
-                        $products[] = [
-                            "contact" => $contact,
+                        $products[$sla["id"] . "_" . $product["id"]] = [
                             "sla"     => $sla,
                             "product" => $product
                         ];
