@@ -1,6 +1,6 @@
 # Changelog
 
-## [x]
+## [2.0.0]
 - Mark sla
 - Min. PHP 7.2
 

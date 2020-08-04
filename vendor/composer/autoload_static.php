@@ -16,7 +16,7 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
             'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 49,
             'srag\\Plugins\\SrJiraProcessHelper\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\JiraCurl\\' => 14,
+            'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
             'srag\\DIC\\SrJiraProcessHelper\\' => 29,
             'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
@@ -36,7 +36,7 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\JiraCurl\\' => 
+        'srag\\JiraCurl\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/jiracurl/src',
         ),
