@@ -15,5 +15,12 @@ config_jira_web_hook#:#Jira-Web-Hook
 config_mapping#:#Mapping
 config_mapping_assign_jira_user#:#Jira-Benutzer zuweisen
 config_mapping_email_domain#:#E-Mail-Domain
+config_mark_sla#:#SLA markieren
+config_mark_sla_slas_field#:#SLAs-Feld
+config_mark_sla_type#:#Typ
 config_save#:#Speichern
 config_secret#:#Secret
+config_srdb#:#srdb
+config_srdb_domain#:#Domainname
+config_srdb_password#:#Passwort
+config_srdb_username#:#Benutzername

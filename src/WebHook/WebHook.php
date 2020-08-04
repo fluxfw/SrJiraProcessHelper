@@ -75,16 +75,12 @@ class WebHook
                 throw new Exception("Invalid issue result");
             }
 
-            try {
-                $this->handleMapping();
-            } catch (Throwable $ex) {
-                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
-            }
-
-            try {
-                $this->handleBexioOfferEmails();
-            } catch (Throwable $ex) {
-                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
+            foreach (["handleMapping", "handleBexioOfferEmails", "handleMarkSla"] as $func) {
+                try {
+                    $this->{$func}();
+                } catch (Throwable $ex) {
+                    self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
+                }
             }
         } catch (Throwable $ex) {
             self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
@@ -141,11 +137,7 @@ class WebHook
             return;
         }
 
-        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
-        $reporter_email_domain = explode("@", $reporter_email)[1];
-        if (empty($reporter_email_domain)) {
-            throw new Exception("Invalid email address of reporter");
-        }
+        $reporter_email_domain = $this->getReporterEmailDomain();
 
         $assigned = false;
         foreach (self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MAPPING) as $mapping) {
@@ -158,5 +150,68 @@ class WebHook
         if (!$assigned) {
             throw new Exception("No Jira user found for email domain " . $reporter_email_domain);
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function handleMarkSla() : void
+    {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_MARK_SLA)) {
+            return;
+        }
+
+        $products = $this->getSrdbProducts();
+        if (empty($products)) {
+            return;
+        }
+
+        $this->jira_curl->updateIssue($this->issue["key"], [
+            self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_SLAS_FIELD) => implode("\n", array_map(function (array $product) : string {
+                return ($product["product"]["name"] . " - " . $product["sla"]["level"]);
+            }, $products))
+        ]);
+    }
+
+
+    /**
+     * @return string
+     */
+    private function getReporterEmailDomain() : string
+    {
+        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
+        $reporter_email_domain = explode("@", $reporter_email)[1];
+        if (empty($reporter_email_domain)) {
+            throw new Exception("Invalid email address of reporter");
+        }
+
+        return $reporter_email_domain;
+    }
+
+
+    /**
+     * @return array
+     */
+    private function getSrdbProducts() : array
+    {
+        return array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbContacts($this->getReporterEmailDomain()), function (array $products, array $contact) : array {
+            $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbSlas($contact["slas"], self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_TYPE)),
+                function (array $products, array $sla) use ($contact) : array {
+                    $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbProducts($sla["products"]), function (array $products, array $product) use ($contact, $sla) : array {
+                        $products[] = [
+                            "contact" => $contact,
+                            "sla"     => $sla,
+                            "product" => $product
+                        ];
+
+                        return $products;
+                    }, $products);
+
+                    return $products;
+                }, $products);
+
+            return $products;
+        }, []);
     }
 }

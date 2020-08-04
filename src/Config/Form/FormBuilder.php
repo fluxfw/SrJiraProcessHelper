@@ -29,15 +29,25 @@ class FormBuilder extends AbstractFormBuilder
     const KEY_ENABLE_BEXIO_OFFER_EMAILS = "enable_bexio_offer_emails";
     const KEY_ENABLE_JIRA_WEB_HOOK = "enable_jira_web_hook";
     const KEY_ENABLE_MAPPING = "enable_mapping";
-    //const KEY_JIRA_ACCESS_TOKEN = "jira_access_token";
+    const KEY_ENABLE_MARK_SLA = "enable_mark_sla";
+    const KEY_JIRA = "jira";
     const KEY_JIRA_AUTHORIZATION = "jira_authorization";
     const KEY_JIRA_DOMAIN = "jira_domain";
-    //const KEY_JIRA_CONSUMER_KEY = "jira_consumer_key";
+    //const KEY_JIRA_ACCESS_TOKEN = "jira_access_token";
     const KEY_JIRA_PASSWORD = "jira_password";
-    //const KEY_JIRA_PRIVATE_KEY = "jira_private_key";
     const KEY_JIRA_USERNAME = "jira_username";
+    //const KEY_JIRA_CONSUMER_KEY = "jira_consumer_key";
+    const KEY_JIRA_WEB_HOOK = "jira_web_hook";
+    //const KEY_JIRA_PRIVATE_KEY = "jira_private_key";
     const KEY_JIRA_WEB_HOOK_SECRET = "secret";
     const KEY_MAPPING = "mapping";
+    const KEY_MARK_SLA = "mark_sla";
+    const KEY_MARK_SLA_SLAS_FIELD = "mark_sla_slas_field";
+    const KEY_MARK_SLA_TYPE = "mark_sla_type";
+    const KEY_SRDB = "srdb";
+    const KEY_SRDB_DOMAIN = "srdb_domain";
+    const KEY_SRDB_PASSWORD = "srdb_password";
+    const KEY_SRDB_USERNAME = "srdb_username";
     const PLUGIN_CLASS_NAME = ilSrJiraProcessHelperPlugin::class;
 
 
@@ -71,7 +81,7 @@ class FormBuilder extends AbstractFormBuilder
     protected function getData() : array
     {
         $data = [
-            "jira"                       => [
+            self::KEY_JIRA               => [
                 self::KEY_JIRA_DOMAIN        => self::srJiraProcessHelper()->config()->getValue(self::KEY_JIRA_DOMAIN),
                 self::KEY_JIRA_AUTHORIZATION => [
                     "value"        => self::srJiraProcessHelper()->config()->getValue(self::KEY_JIRA_AUTHORIZATION),
@@ -94,7 +104,12 @@ class FormBuilder extends AbstractFormBuilder
                     })()
                 ]
             ],
-            "jira_web_hook"              => [
+            self::KEY_SRDB               => [
+                self::KEY_SRDB_DOMAIN   => self::srJiraProcessHelper()->config()->getValue(self::KEY_SRDB_DOMAIN),
+                self::KEY_SRDB_USERNAME => self::srJiraProcessHelper()->config()->getValue(self::KEY_SRDB_USERNAME),
+                self::KEY_SRDB_PASSWORD => self::srJiraProcessHelper()->config()->getValue(self::KEY_SRDB_PASSWORD)
+            ],
+            self::KEY_JIRA_WEB_HOOK      => [
                 self::KEY_ENABLE_JIRA_WEB_HOOK => self::srJiraProcessHelper()->config()->getValue(self::KEY_ENABLE_JIRA_WEB_HOOK),
                 self::KEY_JIRA_WEB_HOOK_SECRET => self::srJiraProcessHelper()->config()->getValue(self::KEY_JIRA_WEB_HOOK_SECRET)
             ],
@@ -107,6 +122,11 @@ class FormBuilder extends AbstractFormBuilder
                 self::KEY_BEXIO_OFFER_EMAILS                 => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS),
                 self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD),
                 self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => self::srJiraProcessHelper()->config()->getValue(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE)
+            ],
+            self::KEY_MARK_SLA           => [
+                self::KEY_ENABLE_MARK_SLA     => self::srJiraProcessHelper()->config()->getValue(self::KEY_ENABLE_MARK_SLA),
+                self::KEY_MARK_SLA_TYPE       => self::srJiraProcessHelper()->config()->getValue(self::KEY_MARK_SLA_TYPE),
+                self::KEY_MARK_SLA_SLAS_FIELD => self::srJiraProcessHelper()->config()->getValue(self::KEY_MARK_SLA_SLAS_FIELD)
             ]
         ];
 
@@ -182,15 +202,20 @@ class FormBuilder extends AbstractFormBuilder
         $bexio_mails->getInput()->addInput($input);
 
         $fields = [
-            "jira"                       => self::dic()->ui()->factory()->input()->field()->section([
+            self::KEY_JIRA               => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_JIRA_DOMAIN        => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_JIRA_DOMAIN, ConfigCtrl::LANG_MODULE))->withRequired(true),
                 self::KEY_JIRA_AUTHORIZATION => $jira_authorization
-            ], self::plugin()->translate("jira", ConfigCtrl::LANG_MODULE)),
-            "jira_web_hook"              => self::dic()->ui()->factory()->input()->field()->section([
+            ], self::plugin()->translate(self::KEY_JIRA, ConfigCtrl::LANG_MODULE)),
+            self::KEY_SRDB               => self::dic()->ui()->factory()->input()->field()->section([
+                self::KEY_SRDB_DOMAIN   => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_SRDB_DOMAIN, ConfigCtrl::LANG_MODULE))->withRequired(true),
+                self::KEY_SRDB_USERNAME => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_SRDB_USERNAME, ConfigCtrl::LANG_MODULE))->withRequired(true),
+                self::KEY_SRDB_PASSWORD => self::dic()->ui()->factory()->input()->field()->password(self::plugin()->translate(self::KEY_SRDB_PASSWORD, ConfigCtrl::LANG_MODULE))->withRequired(true)
+            ], self::plugin()->translate(self::KEY_SRDB, ConfigCtrl::LANG_MODULE)),
+            self::KEY_JIRA_WEB_HOOK      => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_ENABLE_JIRA_WEB_HOOK => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()->translate("enable", ConfigCtrl::LANG_MODULE)),
                 self::KEY_JIRA_WEB_HOOK_SECRET => self::dic()->ui()->factory()->input()->field()->password(self::plugin()
                     ->translate(self::KEY_JIRA_WEB_HOOK_SECRET, ConfigCtrl::LANG_MODULE))->withRequired(true)
-            ], self::plugin()->translate("jira_web_hook", ConfigCtrl::LANG_MODULE)),
+            ], self::plugin()->translate(self::KEY_JIRA_WEB_HOOK, ConfigCtrl::LANG_MODULE)),
             self::KEY_MAPPING            => self::dic()->ui()->factory()->input()->field()->section([
                 self::KEY_ENABLE_MAPPING => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()->translate("enable", ConfigCtrl::LANG_MODULE)),
                 self::KEY_MAPPING        => $mapping
@@ -202,8 +227,16 @@ class FormBuilder extends AbstractFormBuilder
                 self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
                     ->translate(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD, ConfigCtrl::LANG_MODULE))->withRequired(true),
                 self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE       => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
-                    ->translate(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE, ConfigCtrl::LANG_MODULE))->withRequired(true),
-            ], self::plugin()->translate(self::KEY_BEXIO_OFFER_EMAILS, ConfigCtrl::LANG_MODULE))
+                    ->translate(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE, ConfigCtrl::LANG_MODULE))->withRequired(true)
+            ], self::plugin()->translate(self::KEY_BEXIO_OFFER_EMAILS, ConfigCtrl::LANG_MODULE)),
+            self::KEY_MARK_SLA           => self::dic()->ui()->factory()->input()->field()->section([
+                self::KEY_ENABLE_MARK_SLA     => self::dic()->ui()->factory()->input()->field()->checkbox(self::plugin()
+                    ->translate("enable", ConfigCtrl::LANG_MODULE)),
+                self::KEY_MARK_SLA_TYPE       => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
+                    ->translate(self::KEY_MARK_SLA_TYPE, ConfigCtrl::LANG_MODULE))->withRequired(true),
+                self::KEY_MARK_SLA_SLAS_FIELD => self::dic()->ui()->factory()->input()->field()->text(self::plugin()
+                    ->translate(self::KEY_MARK_SLA_SLAS_FIELD, ConfigCtrl::LANG_MODULE))->withRequired(true)
+            ], self::plugin()->translate(self::KEY_MARK_SLA, ConfigCtrl::LANG_MODULE))
         ];
 
         return $fields;
@@ -224,42 +257,45 @@ class FormBuilder extends AbstractFormBuilder
      */
     protected function storeData(array $data) : void
     {
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_DOMAIN, strval($data["jira"][self::KEY_JIRA_DOMAIN]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_DOMAIN, strval($data[self::KEY_JIRA][self::KEY_JIRA_DOMAIN]));
         if (self::version()->is6()) {
-            switch (strval($data["jira"][self::KEY_JIRA_AUTHORIZATION][0])) {
+            switch (strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][0])) {
                 case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data["jira"][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]->toString());
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_USERNAME]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]->toString());
                     break;
                 /*case JiraCurl::AUTHORIZATION_OAUTH;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_CONSUMER_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PRIVATE_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_ACCESS_TOKEN]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_CONSUMER_KEY]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PRIVATE_KEY]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_ACCESS_TOKEN]));
                     break;*/
                 default:
                     break;
             }
         } else {
-            switch (strval($data["jira"][self::KEY_JIRA_AUTHORIZATION]["value"])) {
+            switch (strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["value"])) {
                 case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]->toString());
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_USERNAME]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]->toString());
                     break;
                 /*case JiraCurl::AUTHORIZATION_OAUTH;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_CONSUMER_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PRIVATE_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data["jira"][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_ACCESS_TOKEN]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_CONSUMER_KEY]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PRIVATE_KEY]));
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_ACCESS_TOKEN]));
                     break;*/
                 default:
                     break;
             }
         }
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_JIRA_WEB_HOOK, boolval($data["jira_web_hook"][self::KEY_ENABLE_JIRA_WEB_HOOK]));
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_WEB_HOOK_SECRET, $data["jira_web_hook"][self::KEY_JIRA_WEB_HOOK_SECRET]->toString());
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_DOMAIN, strval($data[self::KEY_SRDB][self::KEY_SRDB_DOMAIN]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_USERNAME, strval($data[self::KEY_SRDB][self::KEY_SRDB_USERNAME]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_PASSWORD, $data[self::KEY_SRDB][self::KEY_SRDB_PASSWORD]->toString());
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_JIRA_WEB_HOOK, boolval($data[self::KEY_JIRA_WEB_HOOK][self::KEY_ENABLE_JIRA_WEB_HOOK]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_WEB_HOOK_SECRET, $data[self::KEY_JIRA_WEB_HOOK][self::KEY_JIRA_WEB_HOOK_SECRET]->toString());
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MAPPING, boolval($data[self::KEY_MAPPING][self::KEY_ENABLE_MAPPING]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MAPPING, (array) $data[self::KEY_MAPPING][self::KEY_MAPPING]);
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_BEXIO_OFFER_EMAILS, boolval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_ENABLE_BEXIO_OFFER_EMAILS]));
@@ -268,5 +304,8 @@ class FormBuilder extends AbstractFormBuilder
             ->config()
             ->setValue(self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD, strval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_BEXIO_OFFER_EMAILS_OFFER_URL_FIELD]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE, strval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_BEXIO_OFFER_EMAILS_LINK_TYPE]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MARK_SLA, boolval($data[self::KEY_MARK_SLA][self::KEY_ENABLE_MARK_SLA]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_TYPE, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_TYPE]));
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_SLAS_FIELD, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_SLAS_FIELD]));
     }
 }
