@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.1]
+- Unique sla and product id
+
 ## [2.0.0]
 - Mark sla
 - Min. PHP 7.2
