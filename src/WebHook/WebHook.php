@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrJiraProcessHelper\Hook;
+namespace srag\Plugins\SrJiraProcessHelper\WebHook;
 
 use Exception;
 use ilLogLevel;
@@ -12,13 +12,13 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use Throwable;
 
 /**
- * Class Hook
+ * Class WebHook
  *
- * @package srag\Plugins\SrJiraProcessHelper\Hook
+ * @package srag\Plugins\SrJiraProcessHelper\WebHook
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class Hook
+class WebHook
 {
 
     use DICTrait;
@@ -47,20 +47,24 @@ class Hook
     /**
      *
      */
-    public function handle()/* : void*/
+    public function handle() : void
     {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_JIRA_WEB_HOOK)) {
+            return;
+        }
+
         try {
             $post = json_decode(file_get_contents("php://input"), true);
             if (
                 !is_array($post)
                 || empty($post["issue_key"])
                 || empty($post["secret"])
-                || $post["secret"] !== self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_SECRET)
+                || $post["secret"] !== self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_JIRA_WEB_HOOK_SECRET)
             ) {
                 throw new Exception("Invalid post input");
             }
 
-            $this->jira_curl = self::srJiraProcessHelper()->hook()->initJiraCurl();
+            $this->jira_curl = self::srJiraProcessHelper()->webHook()->initJiraCurl();
 
             $this->issue = $this->jira_curl->getTicketByKey($post["issue_key"]);
             if (
@@ -71,16 +75,12 @@ class Hook
                 throw new Exception("Invalid issue result");
             }
 
-            try {
-                $this->handleMapping();
-            } catch (Throwable $ex) {
-                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
-            }
-
-            try {
-                $this->handleBexioOfferEmails();
-            } catch (Throwable $ex) {
-                self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
+            foreach (["handleMapping", "handleBexioOfferEmails", "handleMarkSla"] as $func) {
+                try {
+                    $this->{$func}();
+                } catch (Throwable $ex) {
+                    self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
+                }
             }
         } catch (Throwable $ex) {
             self::dic()->logger()->root()->log($ex->__toString(), ilLogLevel::ERROR);
@@ -91,8 +91,12 @@ class Hook
     /**
      *
      */
-    protected function handleBexioOfferEmails()/* : void*/
+    protected function handleBexioOfferEmails() : void
     {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_BEXIO_OFFER_EMAILS)) {
+            return;
+        }
+
         $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
         if (empty(array_filter(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS), function (array $bexio_offer_email) use ($reporter_email): bool {
             return ($bexio_offer_email["email_address"] === $reporter_email);
@@ -127,13 +131,13 @@ class Hook
     /**
      *
      */
-    protected function handleMapping()/* : void*/
+    protected function handleMapping() : void
     {
-        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
-        $reporter_email_domain = explode("@", $reporter_email)[1];
-        if (empty($reporter_email_domain)) {
-            throw new Exception("Invalid email address of reporter");
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_MAPPING)) {
+            return;
         }
+
+        $reporter_email_domain = $this->getReporterEmailDomain();
 
         $assigned = false;
         foreach (self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MAPPING) as $mapping) {
@@ -146,5 +150,68 @@ class Hook
         if (!$assigned) {
             throw new Exception("No Jira user found for email domain " . $reporter_email_domain);
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function handleMarkSla() : void
+    {
+        if (!self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_ENABLE_MARK_SLA)) {
+            return;
+        }
+
+        $products = $this->getSrdbProducts();
+        if (empty($products)) {
+            return;
+        }
+
+        $this->jira_curl->updateIssue($this->issue["key"], [
+            self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_SLAS_FIELD) => implode("\n", array_map(function (array $product) : string {
+                return ($product["product"]["name"] . " - " . $product["sla"]["level"]);
+            }, $products))
+        ]);
+    }
+
+
+    /**
+     * @return string
+     */
+    private function getReporterEmailDomain() : string
+    {
+        $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
+        $reporter_email_domain = explode("@", $reporter_email)[1];
+        if (empty($reporter_email_domain)) {
+            throw new Exception("Invalid email address of reporter");
+        }
+
+        return $reporter_email_domain;
+    }
+
+
+    /**
+     * @return array
+     */
+    private function getSrdbProducts() : array
+    {
+        return array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbContacts($this->getReporterEmailDomain()), function (array $products, array $contact) : array {
+            $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbSlas($contact["slas"], self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_TYPE)),
+                function (array $products, array $sla) use ($contact) : array {
+                    $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbProducts($sla["products"]), function (array $products, array $product) use ($contact, $sla) : array {
+                        $products[] = [
+                            "contact" => $contact,
+                            "sla"     => $sla,
+                            "product" => $product
+                        ];
+
+                        return $products;
+                    }, $products);
+
+                    return $products;
+                }, $products);
+
+            return $products;
+        }, []);
     }
 }

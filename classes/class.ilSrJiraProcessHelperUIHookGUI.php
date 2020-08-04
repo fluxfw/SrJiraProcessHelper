@@ -20,7 +20,7 @@ class ilSrJiraProcessHelperUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
-    public function gotoHook()/*: void*/
+    public function gotoHook() : void
     {
         $target = filter_input(INPUT_GET, "target");
 
@@ -28,7 +28,7 @@ class ilSrJiraProcessHelperUIHookGUI extends ilUIHookPluginGUI
         preg_match("/^uihk_" . ilSrJiraProcessHelperPlugin::PLUGIN_ID . "$/uim", $target, $matches);
 
         if (is_array($matches) && count($matches) >= 1) {
-            self::srJiraProcessHelper()->hook()->factory()->newInstance()->handle();
+            self::srJiraProcessHelper()->webHook()->factory()->newInstance()->handle();
             exit;
         }
     }

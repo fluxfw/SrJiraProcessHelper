@@ -82,7 +82,7 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function addAttachmentsToIssue(string $issue_key, array $attachments)/* : void*/
+    public function addAttachmentsToIssue(string $issue_key, array $attachments) : void
     {
         if (empty($attachments)) {
             return;
@@ -95,18 +95,18 @@ class JiraCurl
         ];
 
         /*
-        $data = [];
+        $post_data = [];
         foreach ($attachments as $i => $attachment) {
-            $data ["file[" . $i . "]"] = new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName());
+            $post_data["file[" . $i . "]"] = new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName());
         }
         */
 
         foreach ($attachments as $i => $attachment) {
-            $data = [
+            $post_data = [
                 "file" => new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName())
             ];
 
-            $this->doRequest("/rest/api/2/issue/" . $issue_key . "/attachments", $headers, json_encode($data));
+            $this->doRequest("rest/api/2/issue/" . $issue_key . "/attachments", $headers, json_encode($post_data));
         }
     }
 
@@ -121,11 +121,13 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function addAttachmentsToServiceDeskRequest(int $service_desk_id, string $request_ticket_key, array $attachments)/* : void*/
+    public function addAttachmentsToServiceDeskRequest(int $service_desk_id, string $request_ticket_key, array $attachments) : void
     {
         if (empty($attachments)) {
             return;
         }
+
+        $rest_url = "rest/servicedeskapi/servicedesk/" . $service_desk_id . "/attachTemporaryFile";
 
         $headers = [
             "Accept"            => "application/json",
@@ -135,20 +137,20 @@ class JiraCurl
         ];
 
         /*
-        $data = [];
+        $post_data = [];
         foreach ($attachments as $i => $attachment) {
-            $data ["file[" . $i . "]"] = new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName());
+            $post_data["file[" . $i . "]"] = new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName());
         }
         */
 
         $temporary_attachment_ids = [];
 
         foreach ($attachments as $attachment) {
-            $data = [
+            $post_data = [
                 "file" => new CURLFile($attachment->getPath(), $attachment->getMimeType(), $attachment->getName())
             ];
 
-            $result = $this->doRequest("/rest/servicedeskapi/servicedesk/" . $service_desk_id . "/attachTemporaryFile", $headers, $data);
+            $result = $this->doRequest($rest_url, $headers, $post_data);
             if (empty($result["temporaryAttachments"]) || !is_array($result["temporaryAttachments"])) {
                 throw new JiraCurlException("Temporary attachments is empty");
             }
@@ -158,18 +160,20 @@ class JiraCurl
             }, $result["temporaryAttachments"]));
         }
 
+        $rest_url = "rest/servicedeskapi/request/" . $request_ticket_key . "/attachment";
+
         $headers = [
             "Accept"            => "application/json",
             "Content-Type"      => "application/json",
             "X-ExperimentalApi" => "opt-in"
         ];
 
-        $data = [
+        $post_data = [
             "temporaryAttachmentIds" => $temporary_attachment_ids,
             "public"                 => true
         ];
 
-        $this->doRequest("/rest/servicedeskapi/request/" . $request_ticket_key . "/attachment", $headers, json_encode($data));
+        $this->doRequest($rest_url, $headers, json_encode($post_data));
     }
 
 
@@ -180,19 +184,21 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function assignIssueToUser(string $issue_key, /*?string*/ $user = null)/* : void*/
+    public function assignIssueToUser(string $issue_key, ?string $user = null) : void
     {
+        $rest_url = "rest/api/2/issue/" . $issue_key . "/assignee";
+
         $headers = [
             "Accept"       => "application/json",
             "Content-Type" => "application/json"
         ];
 
-        $data = [
+        $put_data = [
             "name" => $user
         ];
 
         try {
-            $this->doRequest("/rest/api/2/issue/" . $issue_key . "/assignee", $headers, null, json_encode($data));
+            $this->doRequest($rest_url, $headers, null, json_encode($put_data));
         } catch (JiraCurlException $ex) {
             if ($ex->getMessage() !== "Jira results: ") {
                 throw $ex;
@@ -218,15 +224,17 @@ class JiraCurl
      */
     public function createJiraIssueTicket(string $jira_project_key, string $jira_issue_type, string $summary, string $description, string $priority = null, string $fix_version = null) : string
     {
+        $rest_url = "rest/api/2/issue";
+
         $headers = [
             "Accept"       => "application/json",
             "Content-Type" => "application/json"
         ];
 
-        $data = [
+        $post_data = [
             "fields" => [
                 "project" => [
-                    "key" => $jira_project_key,
+                    "key" => $jira_project_key
                 ],
 
                 "summary" => $summary,
@@ -241,20 +249,20 @@ class JiraCurl
         ];
 
         if (!empty($priority)) {
-            $data["fields"]["priority"] = [
+            $post_data["fields"]["priority"] = [
                 "name" => $priority
             ];
         }
 
         if (!empty($fix_version)) {
-            $data["fields"]["fixVersions"] = [
+            $post_data["fields"]["fixVersions"] = [
                 [
                     "name" => $fix_version
                 ]
             ];
         }
 
-        $result = $this->doRequest("/rest/api/2/issue", $headers, json_encode($data));
+        $result = $this->doRequest($rest_url, $headers, json_encode($post_data));
 
         if (empty($result["key"])) {
             throw new JiraCurlException("Issue key is empty");
@@ -278,14 +286,16 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function createServiceDeskRequest(int $service_desk_id, int $request_type_id, string $summary, string $description, /*?string*/ $customer = null) : string
+    public function createServiceDeskRequest(int $service_desk_id, int $request_type_id, string $summary, string $description, ?string $customer = null) : string
     {
+        $rest_url = "rest/servicedeskapi/request";
+
         $headers = [
             "Accept"       => "application/json",
             "Content-Type" => "application/json"
         ];
 
-        $data = [
+        $post_data = [
             "serviceDeskId"      => $service_desk_id,
             "requestTypeId"      => $request_type_id,
             "requestFieldValues" => [
@@ -294,10 +304,10 @@ class JiraCurl
             ]
         ];
         if (!empty($customer)) {
-            $data["raiseOnBehalfOf"] = $customer;
+            $post_data["raiseOnBehalfOf"] = $customer;
         }
 
-        $result = $this->doRequest("/rest/servicedeskapi/request", $headers, json_encode($data));
+        $result = $this->doRequest($rest_url, $headers, json_encode($post_data));
 
         if (empty($result["issueKey"])) {
             throw new JiraCurlException("Issue key is empty");
@@ -320,19 +330,21 @@ class JiraCurl
      */
     public function ensureServiceDeskCustomer(string $email, string $full_name) : string
     {
+        $rest_url = "rest/servicedeskapi/customer";
+
         $headers = [
             "Accept"            => "application/json",
             "Content-Type"      => "application/json",
             "X-ExperimentalApi" => "opt-in"
         ];
 
-        $data = [
+        $post_data = [
             "email"    => $email,
             "fullName" => $full_name
         ];
 
         try {
-            $result = $this->doRequest("/rest/servicedeskapi/customer", $headers, json_encode($data));
+            $result = $this->doRequest($rest_url, $headers, json_encode($post_data));
         } catch (JiraCurlException $ex) {
             if (strpos($ex->getMessage(), "A user with that username already exists") !== false) {
                 return $email;
@@ -372,7 +384,7 @@ class JiraCurl
     /**
      * @param string $jira_access_token
      */
-    public function setJiraAccessToken(string $jira_access_token)/* : void*/
+    public function setJiraAccessToken(string $jira_access_token) : void
     {
         $this->jira_access_token = $jira_access_token;
     }
@@ -390,7 +402,7 @@ class JiraCurl
     /**
      * @param string $jira_authorization
      */
-    public function setJiraAuthorization(string $jira_authorization)/* : void*/
+    public function setJiraAuthorization(string $jira_authorization) : void
     {
         $this->jira_authorization = $jira_authorization;
     }
@@ -408,7 +420,7 @@ class JiraCurl
     /**
      * @param string $jira_consumer_key
      */
-    public function setJiraConsumerKey(string $jira_consumer_key)/* : void*/
+    public function setJiraConsumerKey(string $jira_consumer_key) : void
     {
         $this->jira_consumer_key = $jira_consumer_key;
     }
@@ -426,7 +438,7 @@ class JiraCurl
     /**
      * @param string $jira_domain
      */
-    public function setJiraDomain(string $jira_domain)/* : void*/
+    public function setJiraDomain(string $jira_domain) : void
     {
         $this->jira_domain = $jira_domain;
     }
@@ -444,7 +456,7 @@ class JiraCurl
     /**
      * @param string $jira_password
      */
-    public function setJiraPassword(string $jira_password)/* : void*/
+    public function setJiraPassword(string $jira_password) : void
     {
         $this->jira_password = $jira_password;
     }
@@ -462,7 +474,7 @@ class JiraCurl
     /**
      * @param string $jira_private_key
      */
-    public function setJiraPrivateKey(string $jira_private_key)/* : void*/
+    public function setJiraPrivateKey(string $jira_private_key) : void
     {
         $this->jira_private_key = $jira_private_key;
     }
@@ -480,7 +492,7 @@ class JiraCurl
     /**
      * @param string $jira_username
      */
-    public function setJiraUsername(string $jira_username)/* : void*/
+    public function setJiraUsername(string $jira_username) : void
     {
         $this->jira_username = $jira_username;
     }
@@ -515,11 +527,13 @@ class JiraCurl
      */
     public function getTicketsByJQL(string $jql) : array
     {
+        $rest_url = "rest/api/2/search?maxResults=" . rawurlencode(self::MAX_RESULTS) . "&jql=" . rawurlencode($jql);
+
         $headers = [
             "Accept" => "application/json"
         ];
 
-        $result = $this->doRequest("/rest/api/2/search?maxResults=" . rawurlencode(self::MAX_RESULTS) . "&jql=" . rawurlencode($jql), $headers);
+        $result = $this->doRequest($rest_url, $headers);
 
         if (!is_array($result["issues"])) {
             throw new JiraCurlException("Issues array is not set");
@@ -581,14 +595,16 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    public function linkTickets(string $ticket_key_1, string $ticket_key_2, string $link_type)/* : void*/
+    public function linkTickets(string $ticket_key_1, string $ticket_key_2, string $link_type) : void
     {
+        $rest_url = "rest/api/2/issueLink";
+
         $headers = [
             "Accept"       => "application/json",
             "Content-Type" => "application/json"
         ];
 
-        $data = [
+        $post_data = [
             "inwardIssue"  => [
                 "key" => $ticket_key_1
             ],
@@ -601,7 +617,37 @@ class JiraCurl
         ];
 
         try {
-            $this->doRequest("/rest/api/2/issueLink", $headers, json_encode($data));
+            $this->doRequest($rest_url, $headers, json_encode($post_data));
+        } catch (JiraCurlException $ex) {
+            if ($ex->getMessage() !== "Jira results: ") {
+                throw $ex;
+            }
+        }
+    }
+
+
+    /**
+     * @param string $issue_key
+     * @param array  $fields
+     *
+     * @throws ilCurlConnectionException
+     * @throws JiraCurlException
+     */
+    public function updateIssue(string $issue_key, array $fields) : void
+    {
+        $rest_url = "rest/api/2/issue/" . $issue_key;
+
+        $headers = [
+            "Accept"       => "application/json",
+            "Content-Type" => "application/json"
+        ];
+
+        $put_data = [
+            "fields" => $fields
+        ];
+
+        try {
+            $this->doRequest($rest_url, $headers, null, json_encode($put_data));
         } catch (JiraCurlException $ex) {
             if ($ex->getMessage() !== "Jira results: ") {
                 throw $ex;
@@ -623,14 +669,12 @@ class JiraCurl
      * @throws ilCurlConnectionException
      * @throws JiraCurlException
      */
-    protected function doRequest(string $rest_url, array $headers, $post_data = null, $put_data = null) : array
+    private function doRequest(string $rest_url, array $headers, $post_data = null, $put_data = null) : array
     {
-        $url = $this->jira_domain . $rest_url;
-
         $curlConnection = null;
 
         try {
-            $curlConnection = $this->initCurlConnection($url, $headers);
+            $curlConnection = $this->initCurlConnection($this->jira_domain . "/" . $rest_url, $headers);
 
             if ($post_data !== null) {
                 $curlConnection->setOpt(CURLOPT_POST, true);
@@ -679,13 +723,12 @@ class JiraCurl
      *
      * @throws ilCurlConnectionException
      */
-    protected function initCurlConnection(string $url, array $headers) : ilCurlConnection
+    private function initCurlConnection(string $url, array $headers) : ilCurlConnection
     {
-        $curlConnection = new ilCurlConnection();
+        $curlConnection = new ilCurlConnection($url);
 
         $curlConnection->init();
 
-        // use a proxy, if configured by ILIAS
         if (!self::version()->is6()) {
             $proxy = ilProxySettings::_getInstance();
             if ($proxy->isActive()) {
@@ -700,12 +743,6 @@ class JiraCurl
                 }
             }
         }
-
-        $curlConnection->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $curlConnection->setOpt(CURLOPT_VERBOSE, false);
-        $curlConnection->setOpt(CURLOPT_SSL_VERIFYPEER, false);
-        $curlConnection->setOpt(CURLOPT_SSL_VERIFYHOST, false);
-        $curlConnection->setOpt(CURLOPT_URL, $url);
 
         switch ($this->jira_authorization) {
             case self::AUTHORIZATION_USERNAMEPASSWORD:
@@ -726,7 +763,7 @@ class JiraCurl
                     "oauth_version"          => "1.0"
                 ];
 
-                $string_to_sign = "POST&" . rawurlencode($url) . "&" . rawurlencode(implode("&", array_map(function ($key, $value) {
+                $string_to_sign = "POST&" . rawurlencode($url) . "&" . rawurlencode(implode("&", array_map(function (string $key, string $value) : string {
                         return (rawurlencode($key) . "=" . rawurlencode($value));
                     }, array_keys($o_auth), $o_auth)));
 
@@ -741,12 +778,11 @@ class JiraCurl
                     openssl_free_key($private_key_id);
                     openssl_free_key($certificate);
                 } catch (Throwable $ex) {
-
                 }
 
                 $o_auth["oauth_signature"] = $signature;
 
-                $headers["Authorization"] = "OAuth " . implode(", ", array_map(function ($key, $value) {
+                $headers["Authorization"] = "OAuth " . implode(", ", array_map(function (string $key, string $value) : string {
                         return (urlencode($key) . '="' . urlencode($value) . '"');
                     }, array_keys($o_auth), $o_auth));
                 break;
@@ -755,11 +791,16 @@ class JiraCurl
                 break;
         }
 
-        $headers = array_map(function ($key, $value) {
+        $headers["User-Agent"] = "ILIAS " . self::version()->getILIASVersion();
+        $curlConnection->setOpt(CURLOPT_HTTPHEADER, array_map(function (string $key, string $value) : string {
             return ($key . ": " . $value);
-        }, array_keys($headers), $headers);
+        }, array_keys($headers), $headers));
 
-        $curlConnection->setOpt(CURLOPT_HTTPHEADER, $headers);
+        $curlConnection->setOpt(CURLOPT_FOLLOWLOCATION, true);
+
+        $curlConnection->setOpt(CURLOPT_RETURNTRANSFER, true);
+
+        $curlConnection->setOpt(CURLOPT_VERBOSE, false/*(intval(DEVMODE) === 1)*/);
 
         return $curlConnection;
     }

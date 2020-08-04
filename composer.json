@@ -1,7 +1,7 @@
 {
   "name": "srag/plugins/srjiraprocesshelper",
   "description": "",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "ilias_plugin": {
     "id": "srjiprohe",
     "ilias_min_version": "5.4.0",
@@ -26,7 +26,7 @@
     "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLPR"
   },
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.2",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",
     "srag/dic": ">=0.1.0",
@@ -53,7 +53,6 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
       "srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
       "srag\\LibrariesNamespaceChanger\\UpdatePluginReadme::updatePluginReadme"
     ]
