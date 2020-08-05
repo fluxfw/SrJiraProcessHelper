@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.2]
+- Sort products
+
 ## [2.0.1]
 - Unique sla and product id
 
