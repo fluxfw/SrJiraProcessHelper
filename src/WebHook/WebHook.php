@@ -195,7 +195,7 @@ class WebHook
      */
     private function getSrdbProducts() : array
     {
-        return array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbContacts($this->getReporterEmailDomain()), function (array $products, array $contact) : array {
+        $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbContacts($this->getReporterEmailDomain()), function (array $products, array $contact) : array {
             $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbSlas($contact["slas"], self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_MARK_SLA_TYPE)),
                 function (array $products, array $sla) use ($contact) : array {
                     $products = array_reduce(self::srJiraProcessHelper()->webHook()->getSrdbProducts($sla["products"]), function (array $products, array $product) use ($contact, $sla) : array {
@@ -212,5 +212,11 @@ class WebHook
 
             return $products;
         }, []);
+
+        uasort($products, function (array $product1, array $product2) : int {
+            return strnatcasecmp($product1["product"]["name"], $product2["product"]["name"]);
+        });
+
+        return $products;
     }
 }
