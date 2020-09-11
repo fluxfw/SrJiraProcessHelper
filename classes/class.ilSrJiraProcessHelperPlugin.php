@@ -4,6 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use ILIAS\DI\Container;
 use srag\CustomInputGUIs\SrJiraProcessHelper\Loader\CustomInputGUIsLoaderDetector;
+use srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use srag\RemovePluginDataConfirm\SrJiraProcessHelper\PluginUninstallTrait;
 
@@ -75,6 +76,8 @@ class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
         parent::updateLanguages($a_lang_keys);
 
         $this->installRemovePluginDataConfirmLanguages();
+
+        DevToolsCtrl::installLanguages(self::plugin());
     }
 
 

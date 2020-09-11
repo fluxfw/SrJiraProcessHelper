@@ -13,18 +13,18 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 49,
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\Plugins\\SrJiraProcessHelper\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
-            'srag\\DIC\\SrJiraProcessHelper\\' => 29,
-            'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -40,11 +40,11 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
         array (
             0 => __DIR__ . '/..' . '/srag/jiracurl/src',
         ),
-        'srag\\DIC\\SrJiraProcessHelper\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -130,6 +130,7 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
         'srag\\DIC\\SrJiraProcessHelper\\Database\\DatabaseInterface' => __DIR__ . '/..' . '/srag/dic/src/Database/DatabaseInterface.php',
         'srag\\DIC\\SrJiraProcessHelper\\Database\\PdoContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoContextHelper.php',
         'srag\\DIC\\SrJiraProcessHelper\\Database\\PdoStatementContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoStatementContextHelper.php',
+        'srag\\DIC\\SrJiraProcessHelper\\DevTools\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/dic/src/DevTools/class.DevToolsCtrl.php',
         'srag\\DIC\\SrJiraProcessHelper\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
         'srag\\DIC\\SrJiraProcessHelper\\Loader\\AbstractLoaderDetector' => __DIR__ . '/..' . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
         'srag\\DIC\\SrJiraProcessHelper\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
