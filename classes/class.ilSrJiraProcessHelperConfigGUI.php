@@ -10,7 +10,7 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 /**
  * Class ilSrJiraProcessHelperConfigGUI
  *
- * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl: ilSrJiraProcessHelperConfigGUI
  */
