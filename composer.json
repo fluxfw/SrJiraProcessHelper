@@ -1,11 +1,13 @@
 {
   "name": "srag/plugins/srjiraprocesshelper",
   "description": "",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "ilias_plugin": {
     "id": "srjiprohe",
+    "name": "SrJiraProcessHelper",
     "ilias_min_version": "5.4.0",
-    "ilias_max_version": "6.999"
+    "ilias_max_version": "6.999",
+    "slot": "Services/UIComponent/UserInterfaceHook"
   },
   "type": "project",
   "keywords": [

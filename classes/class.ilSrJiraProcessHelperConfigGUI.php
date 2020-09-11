@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\Plugins\SrJiraProcessHelper\Config\ConfigCtrl;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
@@ -10,6 +11,8 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
  * Class ilSrJiraProcessHelperConfigGUI
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
+ * @ilCtrl_isCalledBy srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl: ilSrJiraProcessHelperConfigGUI
  */
 class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
 {
@@ -44,6 +47,10 @@ class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
                 self::dic()->ctrl()->forwardCommand(new ConfigCtrl());
                 break;
 
+            case strtolower(DevToolsCtrl::class):
+                self::dic()->ctrl()->forwardCommand(new DevToolsCtrl($this, self::plugin()));
+                break;
+
             default:
                 $cmd = self::dic()->ctrl()->getCmd();
 
@@ -75,6 +82,8 @@ class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
     protected function setTabs() : void
     {
         ConfigCtrl::addTabs();
+
+        DevToolsCtrl::addTabs(self::plugin());
 
         self::dic()->locator()->addItem(ilSrJiraProcessHelperPlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTarget($this, self::CMD_CONFIGURE));
     }
