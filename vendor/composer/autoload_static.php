@@ -4,27 +4,28 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
+class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
 {
     public static $files = array (
         '5821dd0cb24b227186690568b1f90737' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+        '28b1d11d1b210a735dc6b92f8da55e5b' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 49,
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\Plugins\\SrJiraProcessHelper\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
-            'srag\\DIC\\SrJiraProcessHelper\\' => 29,
-            'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
-            'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
+            'srag\\JiraCurl\\' => 14,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -36,19 +37,19 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\JiraCurl\\SrJiraProcessHelper\\' => 
+        'srag\\JiraCurl\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/jiracurl/src',
         ),
-        'srag\\DIC\\SrJiraProcessHelper\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -132,6 +133,7 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
         'srag\\DIC\\SrJiraProcessHelper\\Database\\PdoStatementContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoStatementContextHelper.php',
         'srag\\DIC\\SrJiraProcessHelper\\DevTools\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/dic/src/DevTools/class.DevToolsCtrl.php',
         'srag\\DIC\\SrJiraProcessHelper\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
+        'srag\\DIC\\SrJiraProcessHelper\\Ilias7PreWarn' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
         'srag\\DIC\\SrJiraProcessHelper\\Loader\\AbstractLoaderDetector' => __DIR__ . '/..' . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
         'srag\\DIC\\SrJiraProcessHelper\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
         'srag\\DIC\\SrJiraProcessHelper\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
@@ -170,9 +172,9 @@ class ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit811e15e0530988f1be7dd3f3e71fd377::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit205e8ff7deb64fc32b702956b82a5664::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit205e8ff7deb64fc32b702956b82a5664::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit205e8ff7deb64fc32b702956b82a5664::$classMap;
 
         }, null, ClassLoader::class);
     }

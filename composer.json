@@ -1,7 +1,7 @@
 {
   "name": "srag/plugins/srjiraprocesshelper",
   "description": "",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "ilias_plugin": {
     "id": "srjiprohe",
     "name": "SrJiraProcessHelper",
@@ -44,7 +44,8 @@
       "classes/"
     ],
     "files": [
-      "vendor/srag/dic/src/PHPVersionChecker.php"
+      "vendor/srag/dic/src/PHPVersionChecker.php",
+      "vendor/srag/dic/src/Ilias7PreWarn.php"
     ]
   },
   "config": {
