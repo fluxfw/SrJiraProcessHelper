@@ -6,11 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'srag\\RemovePluginDataConfirm\\' => array($vendorDir . '/srag/removeplugindataconfirm/src'),
+    'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/removeplugindataconfirm/src'),
     'srag\\Plugins\\SrJiraProcessHelper\\' => array($baseDir . '/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
-    'srag\\JiraCurl\\' => array($vendorDir . '/srag/jiracurl/src'),
-    'srag\\DIC\\' => array($vendorDir . '/srag/dic/src'),
-    'srag\\CustomInputGUIs\\' => array($vendorDir . '/srag/custominputguis/src'),
-    'srag\\ActiveRecordConfig\\' => array($vendorDir . '/srag/activerecordconfig/src'),
+    'srag\\JiraCurl\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/jiracurl/src'),
+    'srag\\DIC\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/custominputguis/src'),
+    'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/activerecordconfig/src'),
 );

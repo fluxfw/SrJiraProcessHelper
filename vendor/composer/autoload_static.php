@@ -14,18 +14,18 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 49,
             'srag\\Plugins\\SrJiraProcessHelper\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\JiraCurl\\' => 14,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
+            'srag\\DIC\\SrJiraProcessHelper\\' => 29,
+            'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
+            'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -37,19 +37,19 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\JiraCurl\\' => 
+        'srag\\JiraCurl\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/jiracurl/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
