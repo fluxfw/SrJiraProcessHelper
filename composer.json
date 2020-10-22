@@ -2,12 +2,14 @@
   "name": "srag/plugins/srjiraprocesshelper",
   "description": "",
   "version": "2.0.4",
-  "ilias_plugin": {
-    "id": "srjiprohe",
-    "name": "SrJiraProcessHelper",
-    "ilias_min_version": "5.4.0",
-    "ilias_max_version": "6.999",
-    "slot": "Services/UIComponent/UserInterfaceHook"
+  "extra": {
+    "ilias_plugin": {
+      "id": "srjiprohe",
+      "name": "SrJiraProcessHelper",
+      "ilias_min_version": "5.4.0",
+      "ilias_max_version": "6.999",
+      "slot": "Services/UIComponent/UserInterfaceHook"
+    }
   },
   "type": "project",
   "keywords": [
@@ -25,7 +27,7 @@
     }
   ],
   "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLPR"
+    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PJPH"
   },
   "require": {
     "php": ">=7.2",
@@ -57,7 +59,7 @@
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
       "srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\LibrariesNamespaceChanger\\UpdatePluginReadme::updatePluginReadme"
+      "srag\\LibrariesNamespaceChanger\\GeneratePluginReadme::generatePluginReadme"
     ]
   }
 }
