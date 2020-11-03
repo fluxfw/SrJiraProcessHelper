@@ -94,6 +94,7 @@ return array(
     'srag\\DIC\\SrJiraProcessHelper\\Util\\LibraryLanguageInstaller' => $vendorDir . '/srag/dic/src/Util/LibraryLanguageInstaller.php',
     'srag\\DIC\\SrJiraProcessHelper\\Version\\Version' => $vendorDir . '/srag/dic/src/Version/Version.php',
     'srag\\DIC\\SrJiraProcessHelper\\Version\\VersionInterface' => $vendorDir . '/srag/dic/src/Version/VersionInterface.php',
+    'srag\\DevTools\\SrJiraProcessHelper\\DevToolsCtrl' => $vendorDir . '/srag/devtools/src/class.DevToolsCtrl.php',
     'srag\\JiraCurl\\SrJiraProcessHelper\\Exception\\JiraCurlException' => $vendorDir . '/srag/jiracurl/src/Exception/JiraCurlException.php',
     'srag\\JiraCurl\\SrJiraProcessHelper\\JiraCurl' => $vendorDir . '/srag/jiracurl/src/JiraCurl.php',
     'srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml' => $vendorDir . '/srag/librariesnamespacechanger/src/GeneratePluginPhpAndXml.php',

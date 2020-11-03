@@ -10,7 +10,8 @@ return array(
     'srag\\Plugins\\SrJiraProcessHelper\\' => array($baseDir . '/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\JiraCurl\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/jiracurl/src'),
-    'srag\\DIC\\' => array($vendorDir . '/srag/dic/src'),
-    'srag\\CustomInputGUIs\\' => array($vendorDir . '/srag/custominputguis/src'),
+    'srag\\DevTools\\' => array($vendorDir . '/srag/devtools/src'),
+    'srag\\DIC\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/custominputguis/src'),
     'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/activerecordconfig/src'),
 );

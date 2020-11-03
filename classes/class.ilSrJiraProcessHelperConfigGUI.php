@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl;
+use srag\DevTools\SrJiraProcessHelper\DevToolsCtrl;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\Plugins\SrJiraProcessHelper\Config\ConfigCtrl;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
@@ -12,7 +12,7 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
  *
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @ilCtrl_isCalledBy srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl: ilSrJiraProcessHelperConfigGUI
+ * @ilCtrl_isCalledBy srag\DevTools\SrJiraProcessHelper\DevToolsCtrl: ilSrJiraProcessHelperConfigGUI
  */
 class ilSrJiraProcessHelperConfigGUI extends ilPluginConfigGUI
 {
