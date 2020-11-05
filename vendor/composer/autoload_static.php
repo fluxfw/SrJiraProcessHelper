@@ -18,7 +18,8 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
             'srag\\Plugins\\SrJiraProcessHelper\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
-            'srag\\DevTools\\' => 14,
+            'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\' => 51,
+            'srag\\DevTools\\SrJiraProcessHelper\\' => 34,
             'srag\\DIC\\SrJiraProcessHelper\\' => 29,
             'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
@@ -42,7 +43,11 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         array (
             0 => __DIR__ . '/..' . '/srag/jiracurl/src',
         ),
-        'srag\\DevTools\\' => 
+        'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src',
+        ),
+        'srag\\DevTools\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/devtools/src',
         ),
@@ -150,6 +155,9 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         'srag\\DIC\\SrJiraProcessHelper\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
         'srag\\DIC\\SrJiraProcessHelper\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\DevTools\\SrJiraProcessHelper\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/devtools/src/class.DevToolsCtrl.php',
+        'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\GeneratePluginPhpAndXml' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/GeneratePluginPhpAndXml.php',
+        'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\GeneratePluginReadme' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/GeneratePluginReadme.php',
+        'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\UpdatePluginReadme' => __DIR__ . '/..' . '/srag/generateplugininfoshelper/src/UpdatePluginReadme.php',
         'srag\\JiraCurl\\SrJiraProcessHelper\\Exception\\JiraCurlException' => __DIR__ . '/..' . '/srag/jiracurl/src/Exception/JiraCurlException.php',
         'srag\\JiraCurl\\SrJiraProcessHelper\\JiraCurl' => __DIR__ . '/..' . '/srag/jiracurl/src/JiraCurl.php',
         'srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginPhpAndXml.php',
