@@ -4,7 +4,7 @@ namespace srag\RemovePluginDataConfirm\SrJiraProcessHelper;
 
 use ilUIPluginRouterGUI;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
-use srag\DIC\SrJiraProcessHelper\Util\LibraryLanguageInstaller;
+use srag\LibraryLanguageInstaller\SrJiraProcessHelper\LibraryLanguageInstaller;
 
 /**
  * Trait BasePluginUninstallTrait

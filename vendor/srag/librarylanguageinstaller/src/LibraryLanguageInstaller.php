@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\SrJiraProcessHelper\Util;
+namespace srag\LibraryLanguageInstaller\SrJiraProcessHelper;
 
 use ilDBConstants;
 use ilGlobalCache;
@@ -12,7 +12,7 @@ use srag\DIC\SrJiraProcessHelper\Plugin\PluginInterface;
 /**
  * Class LibraryLanguageInstaller
  *
- * @package srag\DIC\SrJiraProcessHelper\Util
+ * @package srag\LibraryLanguageInstaller\SrJiraProcessHelper
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

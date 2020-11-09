@@ -9,7 +9,7 @@ use ilPluginConfigGUI;
 use ilUtil;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\DIC\SrJiraProcessHelper\Plugin\PluginInterface;
-use srag\DIC\SrJiraProcessHelper\Util\LibraryLanguageInstaller;
+use srag\LibraryLanguageInstaller\SrJiraProcessHelper\LibraryLanguageInstaller;
 
 /**
  * Class DevToolsCtrl
