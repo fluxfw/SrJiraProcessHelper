@@ -1,1 +1,0 @@
-# SrJiraProcessHelper ILIAS Plugin Documentation
