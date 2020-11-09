@@ -21,7 +21,7 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
             'srag\\JiraCurl\\SrJiraProcessHelper\\' => 34,
             'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\' => 51,
             'srag\\DevTools\\SrJiraProcessHelper\\' => 34,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\SrJiraProcessHelper\\' => 29,
             'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => 41,
             'srag\\ActiveRecordConfig\\SrJiraProcessHelper\\' => 44,
         ),
@@ -56,7 +56,7 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         array (
             0 => __DIR__ . '/..' . '/srag/devtools/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrJiraProcessHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
