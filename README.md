@@ -8,6 +8,11 @@ This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://stude
 
 This project is licensed under the GPL-3.0-only license
 
+## Requirements
+
+* ILIAS 5.4.0 - 6.999
+* PHP >=7.2
+
 ## Installation
 
 Start at your ILIAS root directory
@@ -25,11 +30,6 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 You need also to install [SrJiraProcessHelperCron](https://github.com/studer-raimann/SrJiraProcessHelperCron).
 
 https://your-domain/goto.php?target=uihk_srjiprohe
-
-## Requirements
-
-* ILIAS 5.4.0 - 6.999
-* PHP >=7.2
 
 ## Adjustment suggestions
 
