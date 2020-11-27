@@ -27,7 +27,7 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 
 ## Description
 
-You need also to install [SrJiraProcessHelperCron](https://github.com/studer-raimann/SrJiraProcessHelperCron).
+If you want to use the xyz feature, you need to install the [SrJiraProcessHelperCron](https://github.com/studer-raimann/SrJiraProcessHelperCron) plugin
 
 https://your-domain/goto.php?target=uihk_srjiprohe
 
