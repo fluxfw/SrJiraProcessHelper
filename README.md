@@ -33,8 +33,9 @@ https://your-domain/goto.php?target=uihk_srjiprohe
 
 ## Adjustment suggestions
 
-* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PJPH
-* Adjustment suggestions by pull requests via github
+You can report bugs or suggestions at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PJPH
+
+There is no guarantee this can be fixed or implemented
 
 ## ILIAS Plugin SLA
 
