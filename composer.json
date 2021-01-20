@@ -1,6 +1,6 @@
 {
   "name": "srag/srjiraprocesshelper",
-  "description": "SrJiraProcessHelper",
+  "description": "srag jira process helper",
   "version": "2.0.5",
   "extra": {
     "ilias_plugin": {
