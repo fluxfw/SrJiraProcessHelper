@@ -92,7 +92,7 @@ final class Repository
             throw new Exception("Invalid srdb contacts");
         }
 
-        return array_filter($contacts, function (array $contact) use ($reporter_email_domain): bool {
+        return array_filter($contacts, function (array $contact) use ($reporter_email_domain) : bool {
             return (strrpos($contact["email"], "@" . $reporter_email_domain) === (strlen($contact["email"]) - strlen("@" . $reporter_email_domain)));
         });
     }
@@ -157,7 +157,7 @@ final class Repository
             $slas[] = $sla;
         }
 
-        return array_filter($slas, function (array $sla) use ($type): bool {
+        return array_filter($slas, function (array $sla) use ($type) : bool {
             return ($sla["type"] === $type);
         });
     }

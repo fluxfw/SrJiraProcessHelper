@@ -64,6 +64,21 @@ class FormBuilder extends AbstractFormBuilder
 
 
     /**
+     * @param string|Password $password
+     *
+     * @return string
+     */
+    protected function fixPassword($password) : string
+    {
+        if ($password instanceof Password) {
+            $password = $password->toString();
+        }
+
+        return strval($password);
+    }
+
+
+    /**
      * @inheritDoc
      */
     protected function getButtons() : array
@@ -310,20 +325,5 @@ class FormBuilder extends AbstractFormBuilder
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MARK_SLA, boolval($data[self::KEY_MARK_SLA][self::KEY_ENABLE_MARK_SLA]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_TYPE, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_TYPE]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_SLAS_FIELD, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_SLAS_FIELD]));
-    }
-
-
-    /**
-     * @param string|Password $password
-     *
-     * @return string
-     */
-    protected function fixPassword($password) : string
-    {
-        if ($password instanceof Password) {
-            $password = $password->toString();
-        }
-
-        return strval($password);
     }
 }

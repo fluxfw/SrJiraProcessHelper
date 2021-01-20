@@ -98,7 +98,7 @@ class WebHook
         }
 
         $reporter_email = $this->issue["fields"]["reporter"]["emailAddress"];
-        if (empty(array_filter(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS), function (array $bexio_offer_email) use ($reporter_email): bool {
+        if (empty(array_filter(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_BEXIO_OFFER_EMAILS), function (array $bexio_offer_email) use ($reporter_email) : bool {
             return ($bexio_offer_email["email_address"] === $reporter_email);
         }))
         ) {
