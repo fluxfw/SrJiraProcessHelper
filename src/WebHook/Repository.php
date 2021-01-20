@@ -4,7 +4,6 @@ namespace srag\Plugins\SrJiraProcessHelper\WebHook;
 
 use Exception;
 use ilCurlConnection;
-use ilProxySettings;
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\JiraCurl\SrJiraProcessHelper\JiraCurl;
@@ -230,21 +229,6 @@ final class Repository
         $curlConnection = new ilCurlConnection(self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_SRDB_DOMAIN) . "/api/" . $rest_url);
 
         $curlConnection->init();
-
-        if (!self::version()->is6()) {
-            $proxy = ilProxySettings::_getInstance();
-            if ($proxy->isActive()) {
-                $curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
-
-                if (!empty($proxy->getHost())) {
-                    $curlConnection->setOpt(CURLOPT_PROXY, $proxy->getHost());
-                }
-
-                if (!empty($proxy->getPort())) {
-                    $curlConnection->setOpt(CURLOPT_PROXYPORT, $proxy->getPort());
-                }
-            }
-        }
 
         $curlConnection->setOpt(CURLOPT_USERPWD, self::srJiraProcessHelper()->config()->getValue(FormBuilder::KEY_SRDB_USERNAME) . ":" . self::srJiraProcessHelper()
                 ->config()
