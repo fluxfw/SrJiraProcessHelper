@@ -103,7 +103,7 @@ class WebHook
         }))
         ) {
             return;
-        };
+        }
 
         $issue_text = $this->issue["fields"]["description"];
         $issue_text_lines = explode("\n", $issue_text);
