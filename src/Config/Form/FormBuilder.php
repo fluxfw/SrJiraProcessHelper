@@ -64,6 +64,21 @@ class FormBuilder extends AbstractFormBuilder
 
 
     /**
+     * @param string|Password $password
+     *
+     * @return string
+     */
+    protected function fixPassword($password) : string
+    {
+        if ($password instanceof Password) {
+            $password = $password->toString();
+        }
+
+        return strval($password);
+    }
+
+
+    /**
      * @inheritDoc
      */
     protected function getButtons() : array
@@ -149,15 +164,14 @@ class FormBuilder extends AbstractFormBuilder
             self::KEY_JIRA_PRIVATE_KEY  => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_JIRA_PRIVATE_KEY, ConfigCtrl::LANG_MODULE))->withRequired(true),
             self::KEY_JIRA_ACCESS_TOKEN => self::dic()->ui()->factory()->input()->field()->text(self::plugin()->translate(self::KEY_JIRA_ACCESS_TOKEN, ConfigCtrl::LANG_MODULE))->withRequired(true)
         ];*/
-        if (self::version()->is6()) {
-            $jira_authorization = self::dic()->ui()->factory()->input()->field()->switchableGroup([
-                JiraCurl::AUTHORIZATION_USERNAMEPASSWORD => self::dic()
-                    ->ui()
-                    ->factory()
-                    ->input()
-                    ->field()
-                    ->group($jira_authorization_usernamepassword_fields,
-                        self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION . "_" . JiraCurl::AUTHORIZATION_USERNAMEPASSWORD, ConfigCtrl::LANG_MODULE))/*,
+        $jira_authorization = self::dic()->ui()->factory()->input()->field()->switchableGroup([
+            JiraCurl::AUTHORIZATION_USERNAMEPASSWORD => self::dic()
+                ->ui()
+                ->factory()
+                ->input()
+                ->field()
+                ->group($jira_authorization_usernamepassword_fields,
+                    self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION . "_" . JiraCurl::AUTHORIZATION_USERNAMEPASSWORD, ConfigCtrl::LANG_MODULE))/*,
                 JiraCurl::AUTHORIZATION_OAUTH            => self::dic()
                     ->ui()
                     ->factory()
@@ -165,22 +179,7 @@ class FormBuilder extends AbstractFormBuilder
                     ->field()
                     ->group($jira_authorization_oauth_fields,
                         self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION . "_" . JiraCurl::AUTHORIZATION_OAUTH, ConfigCtrl::LANG_MODULE))*/
-            ], self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION, ConfigCtrl::LANG_MODULE))->withRequired(true);
-        } else {
-            $jira_authorization = self::dic()
-                ->ui()
-                ->factory()
-                ->input()
-                ->field()
-                ->radio(self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION, ConfigCtrl::LANG_MODULE))
-                ->withRequired(true)
-                ->withOption(JiraCurl::AUTHORIZATION_USERNAMEPASSWORD,
-                    self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION . "_" . JiraCurl::AUTHORIZATION_USERNAMEPASSWORD, ConfigCtrl::LANG_MODULE), null,
-                    $jira_authorization_usernamepassword_fields)/*->withOption(JiraCurl::AUTHORIZATION_OAUTH,
-                    self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION . "_" . JiraCurl::AUTHORIZATION_OAUTH, ConfigCtrl::LANG_MODULE), null,
-                    $jira_authorization_oauth_fields)*/
-            ;
-        }
+        ], self::plugin()->translate(self::KEY_JIRA_AUTHORIZATION, ConfigCtrl::LANG_MODULE))->withRequired(true);
 
         $mapping = (new InputGUIWrapperUIInputComponent(new MultiLineNewInputGUI(self::plugin()
             ->translate(self::KEY_MAPPING, ConfigCtrl::LANG_MODULE))));
@@ -259,40 +258,20 @@ class FormBuilder extends AbstractFormBuilder
     protected function storeData(array $data) : void
     {
         self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_DOMAIN, strval($data[self::KEY_JIRA][self::KEY_JIRA_DOMAIN]));
-        if (self::version()->is6()) {
-            switch (strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][0])) {
-                case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $this->fixPassword($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]));
-                    break;
-                /*case JiraCurl::AUTHORIZATION_OAUTH;
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_CONSUMER_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PRIVATE_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_ACCESS_TOKEN]));
-                    break;*/
-                default:
-                    break;
-            }
-        } else {
-            switch (strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["value"])) {
-                case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()
-                        ->config()
-                        ->setValue(self::KEY_JIRA_PASSWORD, $this->fixPassword($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]));
-                    break;
-                /*case JiraCurl::AUTHORIZATION_OAUTH;
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_CONSUMER_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PRIVATE_KEY]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_ACCESS_TOKEN]));
-                    break;*/
-                default:
-                    break;
-            }
+        switch (strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][0])) {
+            case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_USERNAME]));
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $this->fixPassword($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]));
+                break;
+            /*case JiraCurl::AUTHORIZATION_OAUTH;
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_CONSUMER_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_CONSUMER_KEY]));
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PRIVATE_KEY, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PRIVATE_KEY]));
+                self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_ACCESS_TOKEN, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_ACCESS_TOKEN]));
+                break;*/
+            default:
+                break;
         }
         self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_DOMAIN, strval($data[self::KEY_SRDB][self::KEY_SRDB_DOMAIN]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_USERNAME, strval($data[self::KEY_SRDB][self::KEY_SRDB_USERNAME]));
@@ -310,20 +289,5 @@ class FormBuilder extends AbstractFormBuilder
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MARK_SLA, boolval($data[self::KEY_MARK_SLA][self::KEY_ENABLE_MARK_SLA]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_TYPE, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_TYPE]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_SLAS_FIELD, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_SLAS_FIELD]));
-    }
-
-
-    /**
-     * @param string|Password $password
-     *
-     * @return string
-     */
-    protected function fixPassword($password) : string
-    {
-        if ($password instanceof Password) {
-            $password = $password->toString();
-        }
-
-        return strval($password);
     }
 }
