@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrJiraProcessHelper\Config\Form;
 
+use ILIAS\Data\Password;
 use ilSrJiraProcessHelperPlugin;
 use ilTextInputGUI;
 use srag\CustomInputGUIs\SrJiraProcessHelper\FormBuilder\AbstractFormBuilder;
@@ -263,7 +264,7 @@ class FormBuilder extends AbstractFormBuilder
                 case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]->toString());
+                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $this->fixPassword($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION][1][self::KEY_JIRA_PASSWORD]));
                     break;
                 /*case JiraCurl::AUTHORIZATION_OAUTH;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
@@ -279,7 +280,9 @@ class FormBuilder extends AbstractFormBuilder
                 case JiraCurl::AUTHORIZATION_USERNAMEPASSWORD;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_USERNAMEPASSWORD);
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_USERNAME, strval($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_USERNAME]));
-                    self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_PASSWORD, $data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]->toString());
+                    self::srJiraProcessHelper()
+                        ->config()
+                        ->setValue(self::KEY_JIRA_PASSWORD, $this->fixPassword($data[self::KEY_JIRA][self::KEY_JIRA_AUTHORIZATION]["group_values"][self::KEY_JIRA_PASSWORD]));
                     break;
                 /*case JiraCurl::AUTHORIZATION_OAUTH;
                     self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_AUTHORIZATION, JiraCurl::AUTHORIZATION_OAUTH);
@@ -293,9 +296,9 @@ class FormBuilder extends AbstractFormBuilder
         }
         self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_DOMAIN, strval($data[self::KEY_SRDB][self::KEY_SRDB_DOMAIN]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_USERNAME, strval($data[self::KEY_SRDB][self::KEY_SRDB_USERNAME]));
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_PASSWORD, $data[self::KEY_SRDB][self::KEY_SRDB_PASSWORD]->toString());
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_SRDB_PASSWORD, $this->fixPassword($data[self::KEY_SRDB][self::KEY_SRDB_PASSWORD]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_JIRA_WEB_HOOK, boolval($data[self::KEY_JIRA_WEB_HOOK][self::KEY_ENABLE_JIRA_WEB_HOOK]));
-        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_WEB_HOOK_SECRET, $data[self::KEY_JIRA_WEB_HOOK][self::KEY_JIRA_WEB_HOOK_SECRET]->toString());
+        self::srJiraProcessHelper()->config()->setValue(self::KEY_JIRA_WEB_HOOK_SECRET, $this->fixPassword($data[self::KEY_JIRA_WEB_HOOK][self::KEY_JIRA_WEB_HOOK_SECRET]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MAPPING, boolval($data[self::KEY_MAPPING][self::KEY_ENABLE_MAPPING]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MAPPING, (array) $data[self::KEY_MAPPING][self::KEY_MAPPING]);
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_BEXIO_OFFER_EMAILS, boolval($data[self::KEY_BEXIO_OFFER_EMAILS][self::KEY_ENABLE_BEXIO_OFFER_EMAILS]));
@@ -307,5 +310,20 @@ class FormBuilder extends AbstractFormBuilder
         self::srJiraProcessHelper()->config()->setValue(self::KEY_ENABLE_MARK_SLA, boolval($data[self::KEY_MARK_SLA][self::KEY_ENABLE_MARK_SLA]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_TYPE, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_TYPE]));
         self::srJiraProcessHelper()->config()->setValue(self::KEY_MARK_SLA_SLAS_FIELD, strval($data[self::KEY_MARK_SLA][self::KEY_MARK_SLA_SLAS_FIELD]));
+    }
+
+
+    /**
+     * @param string|Password $password
+     *
+     * @return string
+     */
+    protected function fixPassword($password) : string
+    {
+        if ($password instanceof Password) {
+            $password = $password->toString();
+        }
+
+        return strval($password);
     }
 }

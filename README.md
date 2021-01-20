@@ -2,7 +2,7 @@
 
 # SrJiraProcessHelper ILIAS Plugin
 
-
+SrJiraProcessHelper
 
 This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://studer-raimann.ch)
 
