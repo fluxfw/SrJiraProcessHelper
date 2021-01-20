@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\CustomInputGUIs\SrJiraProcessHelper\CheckboxInputGUI;
+namespace srag\CustomInputGUIs\SrJiraProcessHelper\AjaxCheckbox;
 
 use srag\CustomInputGUIs\SrJiraProcessHelper\Template\Template;
 use srag\CustomInputGUIs\SrJiraProcessHelper\Waiter\Waiter;
@@ -9,7 +9,7 @@ use srag\DIC\SrJiraProcessHelper\DICTrait;
 /**
  * Class AjaxCheckbox
  *
- * @package srag\CustomInputGUIs\SrJiraProcessHelper\CheckboxInputGUI
+ * @package srag\CustomInputGUIs\SrJiraProcessHelper\AjaxCheckbox
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

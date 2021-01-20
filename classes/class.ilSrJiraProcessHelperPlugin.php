@@ -4,7 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use ILIAS\DI\Container;
 use srag\CustomInputGUIs\SrJiraProcessHelper\Loader\CustomInputGUIsLoaderDetector;
-use srag\DIC\SrJiraProcessHelper\DevTools\DevToolsCtrl;
+use srag\DevTools\SrJiraProcessHelper\DevToolsCtrl;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use srag\RemovePluginDataConfirm\SrJiraProcessHelper\PluginUninstallTrait;
 

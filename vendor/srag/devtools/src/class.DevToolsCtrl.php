@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\DIC\SrJiraProcessHelper\DevTools;
+namespace srag\DevTools\SrJiraProcessHelper;
 
 use ilAdministrationGUI;
 use ilDBConstants;
@@ -9,12 +9,12 @@ use ilPluginConfigGUI;
 use ilUtil;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\DIC\SrJiraProcessHelper\Plugin\PluginInterface;
-use srag\DIC\SrJiraProcessHelper\Util\LibraryLanguageInstaller;
+use srag\LibraryLanguageInstaller\SrJiraProcessHelper\LibraryLanguageInstaller;
 
 /**
  * Class DevToolsCtrl
  *
- * @package srag\DIC\SrJiraProcessHelper\DevTools
+ * @package srag\DevTools\SrJiraProcessHelper
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -69,7 +69,7 @@ class DevToolsCtrl
      */
     public static function installLanguages(PluginInterface $plugin)/*:void*/
     {
-        LibraryLanguageInstaller::getInstance()->withPlugin($plugin)->withLibraryLanguageDirectory(__DIR__ . "/lang")->updateLanguages();
+        LibraryLanguageInstaller::getInstance()->withPlugin($plugin)->withLibraryLanguageDirectory(__DIR__ . "/../lang")->updateLanguages();
     }
 
 
