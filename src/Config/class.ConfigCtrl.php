@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrJiraProcessHelper\Config;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilSrJiraProcessHelperPlugin;
 use ilUtil;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
