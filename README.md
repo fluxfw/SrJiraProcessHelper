@@ -27,7 +27,20 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 
 ## Description
 
-https://your-domain/goto.php?target=uihk_srjiprohe
+### Jira WebHook
+
+When: Issue created
+
+URL: https://your-domain/goto.php?target=uihk_srjiprohe
+
+Payload:
+
+```json
+{
+  "issue_key": "${issue.key}",
+  "secret": "..."
+}
+```
 
 ## Adjustment suggestions
 
