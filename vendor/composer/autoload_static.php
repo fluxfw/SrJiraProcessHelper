@@ -170,8 +170,6 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Factory' => __DIR__ . '/../..' . '/src/Config/Factory.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Form\\FormBuilder' => __DIR__ . '/../..' . '/src/Config/Form/FormBuilder.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Config\\Repository' => __DIR__ . '/../..' . '/src/Config/Repository.php',
-        'srag\\Plugins\\SrJiraProcessHelper\\Job\\Factory' => __DIR__ . '/../..' . '/src/Job/Factory.php',
-        'srag\\Plugins\\SrJiraProcessHelper\\Job\\Repository' => __DIR__ . '/../..' . '/src/Job/Repository.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',
         'srag\\Plugins\\SrJiraProcessHelper\\Utils\\SrJiraProcessHelperTrait' => __DIR__ . '/../..' . '/src/Utils/SrJiraProcessHelperTrait.php',
         'srag\\Plugins\\SrJiraProcessHelper\\WebHook\\Factory' => __DIR__ . '/../..' . '/src/WebHook/Factory.php',

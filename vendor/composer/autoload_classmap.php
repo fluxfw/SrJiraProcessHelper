@@ -106,8 +106,6 @@ return array(
     'srag\\Plugins\\SrJiraProcessHelper\\Config\\Factory' => $baseDir . '/src/Config/Factory.php',
     'srag\\Plugins\\SrJiraProcessHelper\\Config\\Form\\FormBuilder' => $baseDir . '/src/Config/Form/FormBuilder.php',
     'srag\\Plugins\\SrJiraProcessHelper\\Config\\Repository' => $baseDir . '/src/Config/Repository.php',
-    'srag\\Plugins\\SrJiraProcessHelper\\Job\\Factory' => $baseDir . '/src/Job/Factory.php',
-    'srag\\Plugins\\SrJiraProcessHelper\\Job\\Repository' => $baseDir . '/src/Job/Repository.php',
     'srag\\Plugins\\SrJiraProcessHelper\\Repository' => $baseDir . '/src/Repository.php',
     'srag\\Plugins\\SrJiraProcessHelper\\Utils\\SrJiraProcessHelperTrait' => $baseDir . '/src/Utils/SrJiraProcessHelperTrait.php',
     'srag\\Plugins\\SrJiraProcessHelper\\WebHook\\Factory' => $baseDir . '/src/WebHook/Factory.php',
