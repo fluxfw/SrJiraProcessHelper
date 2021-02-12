@@ -5,7 +5,6 @@ namespace srag\Plugins\SrJiraProcessHelper;
 use ilSrJiraProcessHelperPlugin;
 use srag\DIC\SrJiraProcessHelper\DICTrait;
 use srag\Plugins\SrJiraProcessHelper\Config\Repository as ConfigRepository;
-use srag\Plugins\SrJiraProcessHelper\Job\Repository as JobsRepository;
 use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
 use srag\Plugins\SrJiraProcessHelper\WebHook\Repository as WebHookRepository;
 
@@ -66,7 +65,6 @@ final class Repository
     public function dropTables() : void
     {
         $this->config()->dropTables();
-        $this->jobs()->dropTables();
         $this->webHook()->dropTables();
     }
 
@@ -77,17 +75,7 @@ final class Repository
     public function installTables() : void
     {
         $this->config()->installTables();
-        $this->jobs()->installTables();
         $this->webHook()->installTables();
-    }
-
-
-    /**
-     * @return JobsRepository
-     */
-    public function jobs() : JobsRepository
-    {
-        return JobsRepository::getInstance();
     }
 
 

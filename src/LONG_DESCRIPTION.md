@@ -1,3 +1,14 @@
-If you want to use the xyz feature, you need to install the [SrJiraProcessHelperCron](https://github.com/studer-raimann/SrJiraProcessHelperCron) plugin
+### Jira WebHook
 
-https://your-domain/goto.php?target=uihk_srjiprohe
+When: Issue created
+
+URL: https://your-domain/goto.php?target=uihk_srjiprohe
+
+Payload:
+
+```json
+{
+  "issue_key": "${issue.key}",
+  "secret": "..."
+}
+```
