@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.1.2]
+- Update project url
+
 ## [2.1.1]
 - Fixes
 
