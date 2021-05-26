@@ -1,7 +1,7 @@
 {
   "name": "srag/srjiraprocesshelper",
   "description": "srag jira process helper",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "extra": {
     "ilias_plugin": {
       "id": "srjiprohe",
@@ -21,13 +21,13 @@
     "plugin",
     "user"
   ],
-  "homepage": "https://github.com/fluxfw/SrJiraProcessHelper",
+  "homepage": "https://github.com/fluxapps/SrJiraProcessHelper",
   "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
       "role": "Developer"
     }
   ],

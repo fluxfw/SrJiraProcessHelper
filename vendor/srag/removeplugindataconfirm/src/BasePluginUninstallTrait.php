@@ -11,8 +11,6 @@ use srag\LibraryLanguageInstaller\SrJiraProcessHelper\LibraryLanguageInstaller;
  *
  * @package srag\RemovePluginDataConfirm\SrJiraProcessHelper
  *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @access  namespace
  */
 trait BasePluginUninstallTrait

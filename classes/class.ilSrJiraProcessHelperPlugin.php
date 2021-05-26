@@ -10,8 +10,6 @@ use srag\RemovePluginDataConfirm\SrJiraProcessHelper\PluginUninstallTrait;
 
 /**
  * Class ilSrJiraProcessHelperPlugin
- *
- * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ilSrJiraProcessHelperPlugin extends ilUserInterfaceHookPlugin
 {

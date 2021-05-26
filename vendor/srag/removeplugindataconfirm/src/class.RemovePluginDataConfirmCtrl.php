@@ -17,8 +17,6 @@ use srag\DIC\SrJiraProcessHelper\DICTrait;
  *
  * @package           srag\RemovePluginDataConfirm\SrJiraProcessHelper
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\RemovePluginDataConfirm\SrJiraProcessHelper\RemovePluginDataConfirmCtrl: ilUIPluginRouterGUI
  */
 class RemovePluginDataConfirmCtrl

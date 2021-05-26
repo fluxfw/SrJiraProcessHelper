@@ -12,8 +12,6 @@ use srag\DIC\SrJiraProcessHelper\DICTrait;
  * Class StaticHTMLPresentationInputGUI
  *
  * @package srag\CustomInputGUIs\SrJiraProcessHelper\StaticHTMLPresentationInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class StaticHTMLPresentationInputGUI extends ilFormPropertyGUI
 {
