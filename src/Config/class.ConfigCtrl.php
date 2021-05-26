@@ -14,8 +14,6 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
  *
  * @package           srag\Plugins\SrJiraProcessHelper\Config
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Plugins\SrJiraProcessHelper\Config\ConfigCtrl: ilSrJiraProcessHelperConfigGUI
  */
 class ConfigCtrl

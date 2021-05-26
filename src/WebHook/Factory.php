@@ -10,8 +10,6 @@ use srag\Plugins\SrJiraProcessHelper\Utils\SrJiraProcessHelperTrait;
  * Class Factory
  *
  * @package srag\Plugins\SrJiraProcessHelper\WebHook
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Factory
 {
