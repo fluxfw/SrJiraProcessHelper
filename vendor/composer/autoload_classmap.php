@@ -71,6 +71,7 @@ return array(
     'srag\\DIC\\SrJiraProcessHelper\\DIC\\AbstractDIC' => $vendorDir . '/srag/dic/src/DIC/AbstractDIC.php',
     'srag\\DIC\\SrJiraProcessHelper\\DIC\\DICInterface' => $vendorDir . '/srag/dic/src/DIC/DICInterface.php',
     'srag\\DIC\\SrJiraProcessHelper\\DIC\\Implementation\\ILIAS60DIC' => $vendorDir . '/srag/dic/src/DIC/Implementation/ILIAS60DIC.php',
+    'srag\\DIC\\SrJiraProcessHelper\\DIC\\Implementation\\ILIAS70DIC' => $vendorDir . '/srag/dic/src/DIC/Implementation/ILIAS70DIC.php',
     'srag\\DIC\\SrJiraProcessHelper\\Database\\AbstractILIASDatabaseDetector' => $vendorDir . '/srag/dic/src/Database/AbstractILIASDatabaseDetector.php',
     'srag\\DIC\\SrJiraProcessHelper\\Database\\DatabaseDetector' => $vendorDir . '/srag/dic/src/Database/DatabaseDetector.php',
     'srag\\DIC\\SrJiraProcessHelper\\Database\\DatabaseInterface' => $vendorDir . '/srag/dic/src/Database/DatabaseInterface.php',

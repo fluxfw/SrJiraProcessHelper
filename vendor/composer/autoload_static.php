@@ -135,6 +135,7 @@ class ComposerStaticInit205e8ff7deb64fc32b702956b82a5664
         'srag\\DIC\\SrJiraProcessHelper\\DIC\\AbstractDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/AbstractDIC.php',
         'srag\\DIC\\SrJiraProcessHelper\\DIC\\DICInterface' => __DIR__ . '/..' . '/srag/dic/src/DIC/DICInterface.php',
         'srag\\DIC\\SrJiraProcessHelper\\DIC\\Implementation\\ILIAS60DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS60DIC.php',
+        'srag\\DIC\\SrJiraProcessHelper\\DIC\\Implementation\\ILIAS70DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS70DIC.php',
         'srag\\DIC\\SrJiraProcessHelper\\Database\\AbstractILIASDatabaseDetector' => __DIR__ . '/..' . '/srag/dic/src/Database/AbstractILIASDatabaseDetector.php',
         'srag\\DIC\\SrJiraProcessHelper\\Database\\DatabaseDetector' => __DIR__ . '/..' . '/srag/dic/src/Database/DatabaseDetector.php',
         'srag\\DIC\\SrJiraProcessHelper\\Database\\DatabaseInterface' => __DIR__ . '/..' . '/srag/dic/src/Database/DatabaseInterface.php',
