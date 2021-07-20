@@ -1,18 +1,15 @@
 {
   "name": "srag/srjiraprocesshelper",
   "description": "srag jira process helper",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "extra": {
     "ilias_plugin": {
       "id": "srjiprohe",
       "name": "SrJiraProcessHelper",
       "ilias_min_version": "6.0",
-      "ilias_max_version": "6.999",
-      "slot": "Services/UIComponent/UserInterfaceHook",
-      "supports_cli_setup": true
-    },
-    "generate_plugin_readme_template": "ILIAS_PLUGIN",
-    "long_description_template": "src/LONG_DESCRIPTION.md"
+      "ilias_max_version": "7.999",
+      "slot": "Services/UIComponent/UserInterfaceHook"
+    }
   },
   "type": "project",
   "keywords": [
@@ -62,8 +59,7 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\GeneratePluginReadme::generatePluginReadme"
+      "srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\GeneratePluginPhpAndXml::generatePluginPhpAndXml"
     ],
     "update-version": [
       "srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\UpdateVersion::updateVersion"

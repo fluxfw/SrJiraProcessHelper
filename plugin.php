@@ -4,9 +4,8 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 $id = "srjiprohe";
-$version = "2.1.6";
+$version = "2.2.0";
 $ilias_min_version = "6.0";
-$ilias_max_version = "6.999";
+$ilias_max_version = "7.999";
 $responsible = "fluxlabs";
 $responsible_mail = "support@fluxlabs.ch";
-$supports_cli_setup = true;
