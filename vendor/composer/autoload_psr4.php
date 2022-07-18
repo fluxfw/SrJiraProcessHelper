@@ -11,7 +11,6 @@ return array(
     'srag\\LibraryLanguageInstaller\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/librarylanguageinstaller/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\JiraCurl\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/jiracurl/src'),
-    'srag\\GeneratePluginInfosHelper\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/generateplugininfoshelper/src'),
     'srag\\DevTools\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/devtools/src'),
     'srag\\DIC\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/dic/src'),
     'srag\\CustomInputGUIs\\SrJiraProcessHelper\\' => array($vendorDir . '/srag/custominputguis/src'),
